@@ -55,19 +55,19 @@
 		<None Remove="Assets\Images\sound.png" />
 	</ItemGroup>
 	<ItemGroup>
-		<AvaloniaUILicenseKey Include="$(AVALON_KEY)" />
+		<AvaloniaUILicenseKey Include="$(AVALONIA_KEY)" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Avalonia" Version="11.3.12" />
-		<PackageReference Include="Avalonia.Controls.DataGrid" Version="11.3.12" />
-		<PackageReference Include="Avalonia.Controls.TreeDataGrid" Version="11.3.1" />
-		<PackageReference Include="Avalonia.Desktop" Version="11.3.12" />
-		<PackageReference Include="Avalonia.Themes.Fluent" Version="11.3.12" />
+		<PackageReference Include="Avalonia" Version="11.3.13" />
+		<PackageReference Include="Avalonia.Controls.DataGrid" Version="11.3.13" />
+		<PackageReference Include="Avalonia.Controls.TreeDataGrid" Version="11.3.2" />
+		<PackageReference Include="Avalonia.Desktop" Version="11.3.13" />
+		<PackageReference Include="Avalonia.Themes.Fluent" Version="11.3.13" />
 		<PackageReference Include="AvaloniaUI.DiagnosticsSupport" Version="2.1.1" />
 		<PackageReference Include="ClosedXML" Version="0.105.0" />
 		<PackageReference Include="MessageBox.Avalonia" Version="3.3.1.1" />
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.3" />
-		<PackageReference Include="ReactiveUI.Avalonia" Version="11.4.7" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.5" />
+		<PackageReference Include="ReactiveUI.Avalonia" Version="11.4.12" />
 		<PackageReference Include="ReactiveUI.SourceGenerators" Version="2.6.1">
 		  <PrivateAssets>all</PrivateAssets>
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
