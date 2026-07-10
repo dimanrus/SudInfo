@@ -11,30 +11,30 @@
         xmlns:viewModels="clr-namespace:SudInfo.Avalonia.ViewModels.WindowViewModels;assembly=SudInfo.Avalonia"
         WindowStartupLocation="CenterScreen"
         x:DataType="viewModels:ServerWindowViewModel">
-  <StackPanel Margin="10"
-              Spacing="5">
-    <TextBox Watermark="Название"
-             MaxLength="100"
-             Text="{Binding Server.Name}"/>
-    <TextBox Watermark="Серийный номер"
-             MaxLength="50"
-             Text="{Binding Server.SerialNumber}"/>
-    <TextBox Watermark="Инвентарный номер"
-             MaxLength="50"
-             Text="{Binding Server.InventarNumber}"/>
-    <TextBox Watermark="IP адрес"
-             MaxLength="15"
-             Text="{Binding Server.IpAddress}"/>
-    <ComboBox Width="280"
-              AutoScrollToSelectedItem="True"
-              ItemsSource="{Binding OperatingSystems}"
-              PlaceholderText="Система"
-              SelectedItem="{Binding Server.OperatingSystem}"/>
-    <Button Content="{Binding SaveButtonText}"
-            Command="{Binding SaveServer}"
-            IsVisible="{Binding ButtonIsVisible}"
-            Margin="0 5 0 0"
-            HorizontalAlignment="Stretch"
-            HorizontalContentAlignment="Center"/>
-  </StackPanel>
+    <StackPanel Margin="10"
+                Spacing="5">
+        <TextBox PlaceholderText="Название"
+                 MaxLength="100"
+                 Text="{Binding Server.Name}" />
+        <TextBox PlaceholderText="Серийный номер"
+                 MaxLength="50"
+                 Text="{Binding Server.SerialNumber}" />
+        <TextBox PlaceholderText="Инвентарный номер"
+                 MaxLength="50"
+                 Text="{Binding Server.InventarNumber}" />
+        <TextBox PlaceholderText="IP адрес"
+                 MaxLength="15"
+                 Text="{Binding Server.IpAddress}" />
+        <ComboBox Width="280"
+                  AutoScrollToSelectedItem="True"
+                  ItemsSource="{Binding OperatingSystems}"
+                  PlaceholderText="Система"
+                  SelectedItem="{Binding Server.OperatingSystem}" />
+        <Button Content="{Binding SaveButtonText}"
+                Command="{Binding SaveServer}"
+                IsVisible="{Binding ButtonIsVisible}"
+                Margin="0 5 0 0"
+                HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Center" />
+    </StackPanel>
 </Window>

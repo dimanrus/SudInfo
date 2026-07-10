@@ -1,6 +1,6 @@
 ﻿namespace SudInfo.Avalonia.ViewModels.WindowViewModels;
 
-public class PrinterWindowViewModel : BaseViewModel
+public partial class PrinterWindowViewModel : BaseViewModel
 {
     #region Services
 
@@ -13,37 +13,33 @@ public class PrinterWindowViewModel : BaseViewModel
     #region Properties
 
     [Reactive]
-    public Printer Printer { get; set; } = new();
+    public partial Printer Printer { get; set; } = new();
 
     [Reactive]
-    public string SaveButtonText { get; private set; } = "Добавить принтер";
+    public partial string SaveButtonText { get; private set; } = "Добавить принтер";
 
     [Reactive]
-    public bool IsButtonVisible { get; set; }
+    public partial bool IsButtonVisible { get; set; }
 
     [Reactive]
-    public bool IsComputer { get; set; }
+    public partial bool IsComputer { get; set; }
 
     #endregion
 
     #region Public Methods
 
-    public async void Initialization(WindowType windowType, Action close, int? id = null)
-    {
+    public async void Initialization(WindowType windowType, Action close, int? id = null) {
         _windowType = windowType;
         _closedWindow = close;
 
         if (windowType != WindowType.View)
             IsButtonVisible = true;
-        if (id != null)
-        {
-            if (windowType != WindowType.View)
-            {
+        if (id != null) {
+            if (windowType != WindowType.View) {
                 SaveButtonText = "Сохранить принтер";
             }
             var printerResult = await _printersService.Get(id.GetValueOrDefault());
-            if (!printerResult.Success)
-            {
+            if (!printerResult.Success) {
                 await DialogService.ShowErrorMessageBox(printerResult.Message);
                 return;
             }
@@ -54,29 +50,25 @@ public class PrinterWindowViewModel : BaseViewModel
         }
     }
 
-    public async Task SavePrinter()
-    {
+    public async Task SavePrinter() {
         if (!ValidationModel(Printer))
             return;
         if (!IsComputer)
             Printer.Computer = null;
         if (!Printer.IsBroken)
             Printer.BreakdownDescription = string.Empty;
-        Result printerResult = _windowType switch
-        {
+        var printerResult = _windowType switch {
             WindowType.Add => await _printersService.Add(Printer),
             _ => await _printersService.Update(Printer)
         };
-        if (!printerResult.Success)
-        {
+        if (!printerResult.Success) {
             await DialogService.ShowErrorMessageBox(printerResult.Message);
             return;
         }
         _closedWindow();
     }
 
-    public async Task LoadComputers()
-    {
+    public async Task LoadComputers() {
         Computers = await _computerService.Get();
     }
 
@@ -92,21 +84,22 @@ public class PrinterWindowViewModel : BaseViewModel
 
     #region Collections
 
-    public static IEnumerable<PrinterType> PrinterTypes => Enum.GetValues<PrinterType>().Cast<PrinterType>();
+    public static IEnumerable<PrinterType> PrinterTypes => Enum.GetValues<PrinterType>();
 
     [Reactive]
-    public IReadOnlyCollection<Computer>? Computers { get; private set; }
+    public partial IReadOnlyCollection<Computer>? Computers { get; private set; }
 
     #endregion
 
     #region Ctors
 
-    public PrinterWindowViewModel(PrinterService printersService, ComputerService computerService)
-    {
+    public PrinterWindowViewModel(PrinterService printersService, ComputerService computerService) {
         #region Service initialization
+
         _printersService = printersService;
 
         _computerService = computerService;
+
         #endregion
     }
     public PrinterWindowViewModel() { }

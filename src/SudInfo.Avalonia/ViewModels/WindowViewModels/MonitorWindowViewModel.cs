@@ -1,7 +1,30 @@
 ﻿namespace SudInfo.Avalonia.ViewModels.WindowViewModels;
 
-public class MonitorWindowViewModel : BaseViewModel
+public partial class MonitorWindowViewModel : BaseViewModel
 {
+    #region Initialization
+
+    public MonitorWindowViewModel(
+        MonitorService monitorService,
+        ComputerService computerService) {
+        #region Service Initialization
+
+        _monitorService = monitorService;
+
+        _computerService = computerService;
+
+        #endregion
+    }
+
+    #endregion
+
+    #region Collections
+
+    [Reactive]
+    public partial IReadOnlyCollection<Computer>? Computers { get; set; }
+
+    #endregion
+
     #region Services
 
     private readonly MonitorService _monitorService;
@@ -10,40 +33,19 @@ public class MonitorWindowViewModel : BaseViewModel
 
     #endregion
 
-    #region Collections
-
-    [Reactive]
-    public IReadOnlyCollection<Computer>? Computers { get; set; }
-
-    #endregion
-
     #region Properties
 
     [Reactive]
-    public Monitor Monitor { get; set; } = new();
+    public partial Monitor Monitor { get; set; } = new();
 
     [Reactive]
-    public bool IsComputer { get; set; }
+    public partial bool IsComputer { get; set; }
 
     [Reactive]
-    public bool IsButtonVisible { get; set; } = false;
+    public partial bool IsButtonVisible { get; set; } = false;
 
     [Reactive]
-    public string SaveButtonText { get; private set; } = "Добавить монитор";
-    #endregion
-
-    #region Initialization
-
-    public MonitorWindowViewModel(
-        MonitorService monitorService,
-        ComputerService computerService)
-    {
-        #region Service Initialization
-        _monitorService = monitorService;
-
-        _computerService = computerService;
-        #endregion
-    }
+    public partial string SaveButtonText { get; private set; } = "Добавить монитор";
 
     #endregion
 
@@ -57,22 +59,18 @@ public class MonitorWindowViewModel : BaseViewModel
 
     #region Public Methods
 
-    public async void Initialization(WindowType windowType, Action close, int? id = null)
-    {
+    public async void Initialization(WindowType windowType, Action close, int? id = null) {
         _windowType = windowType;
         _closedWindow = close;
 
         if (windowType != WindowType.View)
             IsButtonVisible = true;
-        if (id != null)
-        {
-            if (windowType != WindowType.View)
-            {
+        if (id != null) {
+            if (windowType != WindowType.View) {
                 SaveButtonText = "Сохранить монитор";
             }
             var monitorResult = await _monitorService.Get(id.GetValueOrDefault());
-            if (!monitorResult.Success)
-            {
+            if (!monitorResult.Success) {
                 await DialogService.ShowErrorMessageBox(monitorResult.Message);
                 return;
             }
@@ -82,28 +80,24 @@ public class MonitorWindowViewModel : BaseViewModel
             Monitor = monitorResult.Object;
         }
     }
-    public async Task SaveMonitor()
-    {
+    public async Task SaveMonitor() {
         if (!ValidationModel(Monitor))
             return;
         if (!IsComputer)
             Monitor.Computer = null;
         if (!Monitor.IsBroken)
             Monitor.BreakdownDescription = string.Empty;
-        Result monitorResult = _windowType switch
-        {
+        var monitorResult = _windowType switch {
             WindowType.Add => await _monitorService.Add(Monitor),
             _ => await _monitorService.Update(Monitor)
         };
-        if (!monitorResult.Success)
-        {
+        if (!monitorResult.Success) {
             await DialogService.ShowErrorMessageBox(monitorResult.Message);
             return;
         }
         _closedWindow();
     }
-    public async Task LoadComputer()
-    {
+    public async Task LoadComputer() {
         Computers = await _computerService.Get();
     }
 

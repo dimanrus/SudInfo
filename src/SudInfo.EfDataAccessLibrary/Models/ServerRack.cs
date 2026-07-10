@@ -9,5 +9,6 @@ public class ServerRack : BaseModel
     [XLColumn(Header = "Инвентарный номер")]
     [StringLength(50)]
     public string? InventarNumber { get; set; }
+
     public List<Server> Servers { get; set; } = [];
 }

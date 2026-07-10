@@ -10,35 +10,23 @@ public class App : Application
 
     #region Initialization
 
-    public override void Initialize()
-    {
+    public override void Initialize() {
         AvaloniaXamlLoader.Load(this);
         this.AttachDeveloperTools();
     }
 
-    public async override void OnFrameworkInitializationCompleted()
-    {
+    public async override void OnFrameworkInitializationCompleted() {
         MainWindow mainWindow = new();
 
         #region Load ThemeVariant
 
         await using SudInfoDatabaseContext context = new();
-        AppSetting appSetting = await context.AppSettings.AsNoTracking()
-                                                         .FirstAsync();
-        RequestedThemeVariant = appSetting.Theme switch
-        {
+        var appSetting = await context.AppSettings.AsNoTracking()
+                                      .FirstAsync();
+        RequestedThemeVariant = appSetting.Theme switch {
             "Dark" => ThemeVariant.Dark,
-            "Light" => ThemeVariant.Light,
-            _ => ThemeVariant.Dark
+            _ => ThemeVariant.Light
         };
-
-        if (appSetting.Theme == "Acrylic")
-        {
-            mainWindow.TransparencyLevelHint = [
-                WindowTransparencyLevel.AcrylicBlur
-            ];
-            mainWindow.Background = null;
-        }
 
         #endregion
 
@@ -73,5 +61,4 @@ public class App : Application
     }
 
     #endregion
-
 }

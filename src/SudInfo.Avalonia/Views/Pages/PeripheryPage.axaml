@@ -1,117 +1,118 @@
 <UserControl
-	x:Class="SudInfo.Avalonia.Views.Pages.PeripheryPage"
-	xmlns="https://github.com/avaloniaui"
-	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-	xmlns:i="using:Avalonia.Xaml.Interactivity"
-	xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
-	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	xmlns:viewModels="clr-namespace:SudInfo.Avalonia.ViewModels.PageViewModels"
-	d:DesignHeight="450"
-	d:DesignWidth="800"
-	x:DataType="viewModels:PeripheryPageViewModel"
-	mc:Ignorable="d">
-	<i:Interaction.Behaviors>
-		<ia:EventTriggerBehavior EventName="Initialized">
-			<ia:InvokeCommandAction Command="{Binding LoadPeripheries}" />
-		</ia:EventTriggerBehavior>
-	</i:Interaction.Behaviors>
-	<Grid ColumnDefinitions="140, *,20,150, 40,40"
-		  RowDefinitions="40,*">
-		<TextBlock Classes="PageHeader"
-				   Text="Периферия" />
-		<TextBox
-			Grid.Column="1"
-			Margin="10,5,10,5"
-			MaxLength="50"
-			Text="{Binding SearchText}"
-			UseFloatingWatermark="False"
-			Watermark="Поиск по названию, номерам и сотруднику">
-			<i:Interaction.Behaviors>
-				<ia:EventTriggerBehavior EventName="KeyUp">
-					<ia:InvokeCommandAction Command="{Binding SearchBoxKeyUp}" />
-				</ia:EventTriggerBehavior>
-			</i:Interaction.Behaviors>
-		</TextBox>
-		<CheckBox Grid.Column="2"
-				  IsChecked="{Binding IsPeripheryTypeFilter}">
-			<i:Interaction.Behaviors>
-				<EventTriggerBehavior EventName="Checked">
-					<InvokeCommandAction Command="{Binding SearchBoxKeyUp}"
-										 PassEventArgsToCommand="True" />
-				</EventTriggerBehavior>
-				<EventTriggerBehavior EventName="Unchecked">
-					<InvokeCommandAction Command="{Binding SearchBoxKeyUp}"
-										 PassEventArgsToCommand="True" />
-				</EventTriggerBehavior>
-			</i:Interaction.Behaviors>
-		</CheckBox>
-		<ComboBox
-			Grid.Column="3"
-			Width="140"
-			HorizontalAlignment="Center"
-			VerticalAlignment="Center"
-			IsEnabled="{Binding IsPeripheryTypeFilter}"
-			ItemsSource="{Binding PeripheryTypes}"
-			SelectedItem="{Binding SelectedPeripheryType}">
-			<i:Interaction.Behaviors>
-				<EventTriggerBehavior EventName="SelectionChanged">
-					<InvokeCommandAction Command="{Binding SelectionPeripheryTypeChanged}"
-										 PassEventArgsToCommand="True" />
-				</EventTriggerBehavior>
-			</i:Interaction.Behaviors>
-		</ComboBox>
-		<Image Grid.Column="4"
-			   Source="/Assets/Images/excel.png">
-			<i:Interaction.Behaviors>
-				<ia:EventTriggerBehavior EventName="Tapped">
-					<ia:InvokeCommandAction Command="{Binding CreateExcelTable}" />
-				</ia:EventTriggerBehavior>
-			</i:Interaction.Behaviors>
-		</Image>
-		<Image Grid.Column="5"
-			   Source="/Assets/Images/add.png">
-			<i:Interaction.Behaviors>
-				<ia:EventTriggerBehavior EventName="Tapped">
-					<ia:InvokeCommandAction Command="{Binding OpenAddPeripheryWindow}" />
-				</ia:EventTriggerBehavior>
-			</i:Interaction.Behaviors>
-		</Image>
-		<DataGrid
-			Grid.Row="1"
-			Grid.ColumnSpan="6"
-			ItemsSource="{Binding Peripheries}"
-			SelectedItem="{Binding SelectedPeriphery}">
-			<DataGrid.ContextMenu>
-				<ContextMenu>
-					<MenuItem Command="{Binding OpenEditPeripheryWindow}"
-							  Header="Редактировать" />
-					<MenuItem Command="{Binding RemovePeriphery}"
-							  Header="Удалить" />
-				</ContextMenu>
-			</DataGrid.ContextMenu>
-			<DataGrid.Columns>
-				<DataGridTextColumn Binding="{Binding Name}"
-									Header="Наименование" />
-				<DataGridTextColumn Binding="{Binding Type}"
-									Header="Тип" />
-				<DataGridTextColumn Binding="{Binding InventarNumber}"
-									Header="Инвентарный" />
-				<DataGridTextColumn Binding="{Binding SerialNumber}"
-									Header="Серийный" />
-				<DataGridTextColumn Binding="{Binding Computer.Name}"
-									Header="Компьютер" />
-				<DataGridTextColumn Binding="{Binding Computer.User.FIO}"
-									Header="ФИО сотрудника" />
-				<DataGridTextColumn Binding="{Binding Computer.NumberCabinet}"
-									Header="Кабинет" />
-				<DataGridTextColumn Binding="{Binding IsPersonal}"
-									Header="Личное" />
-				<DataGridTextColumn Binding="{Binding IsBroken}"
-									Header="Сломан" />
-				<DataGridTextColumn Binding="{Binding BreakdownDescription}"
-									Header="Описание поломки" />
-			</DataGrid.Columns>
-		</DataGrid>
-	</Grid>
+    x:Class="SudInfo.Avalonia.Views.Pages.PeripheryPage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="using:Avalonia.Xaml.Interactivity"
+    xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="clr-namespace:SudInfo.Avalonia.ViewModels.PageViewModels"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:DataType="viewModels:PeripheryPageViewModel"
+    mc:Ignorable="d">
+    <i:Interaction.Behaviors>
+        <ia:EventTriggerBehavior EventName="Initialized">
+            <ia:InvokeCommandAction Command="{Binding LoadPeripheries}" />
+        </ia:EventTriggerBehavior>
+    </i:Interaction.Behaviors>
+    <Grid ColumnDefinitions="140, *,20,150, 40,40"
+          RowDefinitions="45,*">
+        <TextBlock Classes="PageHeader"
+                   Text="Периферия" />
+        <TextBox
+            Grid.Column="1"
+            Margin="10,5,10,5"
+            MaxLength="50"
+            Text="{Binding SearchText}"
+            UseFloatingPlaceholder="False"
+            PlaceholderText="Поиск по названию, номерам и сотруднику">
+            <i:Interaction.Behaviors>
+                <ia:EventTriggerBehavior EventName="KeyUp">
+                    <ia:InvokeCommandAction Command="{Binding SearchBoxKeyUp}" />
+                </ia:EventTriggerBehavior>
+            </i:Interaction.Behaviors>
+        </TextBox>
+        <CheckBox Grid.Column="2"
+                  IsChecked="{Binding IsPeripheryTypeFilter}">
+            <i:Interaction.Behaviors>
+                <EventTriggerBehavior EventName="Checked">
+                    <InvokeCommandAction Command="{Binding SearchBoxKeyUp}"
+                                         PassEventArgsToCommand="True" />
+                </EventTriggerBehavior>
+                <EventTriggerBehavior EventName="Unchecked">
+                    <InvokeCommandAction Command="{Binding SearchBoxKeyUp}"
+                                         PassEventArgsToCommand="True" />
+                </EventTriggerBehavior>
+            </i:Interaction.Behaviors>
+        </CheckBox>
+        <ComboBox
+            Grid.Column="3"
+            Width="140"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            IsEnabled="{Binding IsPeripheryTypeFilter}"
+            ItemsSource="{Binding PeripheryTypes}"
+            SelectedItem="{Binding SelectedPeripheryType}">
+            <i:Interaction.Behaviors>
+                <EventTriggerBehavior EventName="SelectionChanged">
+                    <InvokeCommandAction
+                        Command="{Binding SelectionPeripheryTypeChanged}"
+                        PassEventArgsToCommand="True" />
+                </EventTriggerBehavior>
+            </i:Interaction.Behaviors>
+        </ComboBox>
+        <Image Grid.Column="4"
+               Source="/Assets/Images/excel.png">
+            <i:Interaction.Behaviors>
+                <ia:EventTriggerBehavior EventName="Tapped">
+                    <ia:InvokeCommandAction Command="{Binding CreateExcelTable}" />
+                </ia:EventTriggerBehavior>
+            </i:Interaction.Behaviors>
+        </Image>
+        <Image Grid.Column="5"
+               Source="/Assets/Images/add.png">
+            <i:Interaction.Behaviors>
+                <ia:EventTriggerBehavior EventName="Tapped">
+                    <ia:InvokeCommandAction Command="{Binding OpenAddPeripheryWindow}" />
+                </ia:EventTriggerBehavior>
+            </i:Interaction.Behaviors>
+        </Image>
+        <DataGrid
+            Grid.Row="1"
+            Grid.ColumnSpan="6"
+            ItemsSource="{Binding Peripheries}"
+            SelectedItem="{Binding SelectedPeriphery}">
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Command="{Binding OpenEditPeripheryWindow}"
+                              Header="Редактировать" />
+                    <MenuItem Command="{Binding RemovePeriphery}"
+                              Header="Удалить" />
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Name}"
+                                    Header="Наименование" />
+                <DataGridTextColumn Binding="{Binding Type}"
+                                    Header="Тип" />
+                <DataGridTextColumn Binding="{Binding InventarNumber}"
+                                    Header="Инвентарный" />
+                <DataGridTextColumn Binding="{Binding SerialNumber}"
+                                    Header="Серийный" />
+                <DataGridTextColumn Binding="{Binding Computer.Name}"
+                                    Header="Компьютер" />
+                <DataGridTextColumn Binding="{Binding Computer.User.FIO}"
+                                    Header="ФИО сотрудника" />
+                <DataGridTextColumn Binding="{Binding Computer.NumberCabinet}"
+                                    Header="Кабинет" />
+                <DataGridTextColumn Binding="{Binding IsPersonal}"
+                                    Header="Личное" />
+                <DataGridTextColumn Binding="{Binding IsBroken}"
+                                    Header="Сломан" />
+                <DataGridTextColumn Binding="{Binding BreakdownDescription}"
+                                    Header="Описание поломки" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
 </UserControl>

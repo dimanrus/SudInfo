@@ -15,41 +15,42 @@
     CanResize="False"
     WindowStartupLocation="CenterOwner"
     mc:Ignorable="d">
-  <i:Interaction.Behaviors>
-    <ia:EventTriggerBehavior EventName="Initialized">
-      <ia:InvokeCommandAction Command="{Binding LoadUsers}" />
-    </ia:EventTriggerBehavior>
-  </i:Interaction.Behaviors>
-  <StackPanel Margin="10" Spacing="5">
-    <TextBox
-        MaxLength="30"
-        Text="{Binding Rutoken.SerialNumberRutoken}"
-        Watermark="Серийный номер рутокен" />
-    <TextBox
-        MaxLength="100"
-        Text="{Binding Rutoken.NumberCertificate}"
-        Watermark="Номер сертификата" />
-    <CalendarDatePicker Width="280" SelectedDate="{Binding Rutoken.EndDateCertificate}" />
-    <StackPanel Orientation="Horizontal">
-      <CheckBox Name="IsUserBox" IsChecked="{Binding IsUser}" />
-      <ComboBox
-          Width="252"
-          AutoScrollToSelectedItem="True"
-          IsEnabled="{Binding #IsUserBox.IsChecked}"
-          ItemsSource="{Binding Users}"
-          PlaceholderText="Сотрудник"
-          SelectedItem="{Binding Rutoken.User}">
-        <ComboBox.DataTemplates>
-          <DataTemplate x:DataType="{x:Type models:User}">
-            <TextBlock Text="{Binding FIO}" />
-          </DataTemplate>
-        </ComboBox.DataTemplates>
-      </ComboBox>
+    <i:Interaction.Behaviors>
+        <ia:EventTriggerBehavior EventName="Initialized">
+            <ia:InvokeCommandAction Command="{Binding LoadUsers}" />
+        </ia:EventTriggerBehavior>
+    </i:Interaction.Behaviors>
+    <StackPanel Margin="10" Spacing="5">
+        <TextBox
+            MaxLength="30"
+            Text="{Binding Rutoken.SerialNumberRutoken}"
+            PlaceholderText="Серийный номер рутокен" />
+        <TextBox
+            MaxLength="100"
+            Text="{Binding Rutoken.NumberCertificate}"
+            PlaceholderText="Номер сертификата" />
+        <CalendarDatePicker Width="280"
+                            SelectedDate="{Binding Rutoken.EndDateCertificate}" />
+        <StackPanel Orientation="Horizontal">
+            <CheckBox Name="IsUserBox" IsChecked="{Binding IsUser}" />
+            <ComboBox
+                Width="252"
+                AutoScrollToSelectedItem="True"
+                IsEnabled="{Binding #IsUserBox.IsChecked}"
+                ItemsSource="{Binding Users}"
+                PlaceholderText="Сотрудник"
+                SelectedItem="{Binding Rutoken.User}">
+                <ComboBox.DataTemplates>
+                    <DataTemplate x:DataType="{x:Type models:User}">
+                        <TextBlock Text="{Binding FIO}" />
+                    </DataTemplate>
+                </ComboBox.DataTemplates>
+            </ComboBox>
+        </StackPanel>
+        <Button
+            HorizontalAlignment="Stretch"
+            HorizontalContentAlignment="Center"
+            Command="{Binding SaveRutoken}"
+            Content="{Binding SaveButtonText}" />
     </StackPanel>
-    <Button
-        HorizontalAlignment="Stretch"
-        HorizontalContentAlignment="Center"
-        Command="{Binding SaveRutoken}"
-        Content="{Binding SaveButtonText}"/>
-  </StackPanel>
 </Window>

@@ -73,7 +73,8 @@
                 <Image Source="/Assets/Images/MenuBar/pc.png">
                     <i:Interaction.Behaviors>
                         <ia:EventTriggerBehavior EventName="Tapped">
-                            <ia:InvokeCommandAction Command="{Binding OpenWorkplacesPage}" />
+                            <ia:InvokeCommandAction
+                                Command="{Binding OpenWorkplacesPage}" />
                         </ia:EventTriggerBehavior>
                     </i:Interaction.Behaviors>
                 </Image>

@@ -11,24 +11,24 @@
         CanResize="False"
         WindowStartupLocation="CenterScreen"
         Title="Картридж">
-  <StackPanel Margin="10"
+    <StackPanel Margin="10"
                 Spacing="5">
-    <TextBox Text="{Binding Cartridge.Name}"
-             Watermark="Название"
-             MaxLength="100"/>
-    <NumericUpDown Value="{Binding Cartridge.Remains}"
-                   Watermark="Количество"
-                   Minimum="1"/>
-    <ComboBox HorizontalAlignment="Stretch"
-              ItemsSource="{Binding CartridgeTypes}"
-              SelectedItem="{Binding Cartridge.Type}" />
-    <ComboBox HorizontalAlignment="Stretch"
-          ItemsSource="{Binding CartridgeStatuses}"
-          SelectedItem="{Binding Cartridge.Status}" />
-    <Button Content="{Binding SaveButtonText}"
-            Command="{Binding SaveCartridge}"
-            HorizontalAlignment="Stretch"
-            HorizontalContentAlignment="Center"
-            IsVisible="{Binding ButtonIsVisible}"/>
-  </StackPanel>
+        <TextBox Text="{Binding Cartridge.Name}"
+                 PlaceholderText="Название"
+                 MaxLength="100" />
+        <NumericUpDown Value="{Binding Cartridge.Remains}"
+                       PlaceholderText="Количество"
+                       Minimum="1" />
+        <ComboBox HorizontalAlignment="Stretch"
+                  ItemsSource="{Binding CartridgeTypes}"
+                  SelectedItem="{Binding Cartridge.Type}" />
+        <ComboBox HorizontalAlignment="Stretch"
+                  ItemsSource="{Binding CartridgeStatuses}"
+                  SelectedItem="{Binding Cartridge.Status}" />
+        <Button Content="{Binding SaveButtonText}"
+                Command="{Binding SaveCartridge}"
+                HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Center"
+                IsVisible="{Binding ButtonIsVisible}" />
+    </StackPanel>
 </Window>

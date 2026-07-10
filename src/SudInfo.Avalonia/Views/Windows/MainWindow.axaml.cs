@@ -2,8 +2,7 @@
 
 public partial class MainWindow : ReactiveWindow<MainWindowViewModel>
 {
-    public MainWindow()
-    {
+    public MainWindow() {
         InitializeComponent();
     }
 }

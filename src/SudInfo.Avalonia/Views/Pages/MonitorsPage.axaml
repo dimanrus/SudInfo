@@ -1,94 +1,94 @@
 <UserControl
-	x:Class="SudInfo.Avalonia.Views.Pages.MonitorsPage"
-	xmlns="https://github.com/avaloniaui"
-	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-	xmlns:i="using:Avalonia.Xaml.Interactivity"
-	xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
-	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	d:DesignHeight="450"
-	d:DesignWidth="800"
-	mc:Ignorable="d"
-	xmlns:vm="using:SudInfo.Avalonia.ViewModels.PageViewModels"
-	x:DataType="vm:MonitorsPageViewModel">
-	<i:Interaction.Behaviors>
-		<ia:EventTriggerBehavior EventName="Initialized">
-			<ia:InvokeCommandAction Command="{Binding LoadMonitors}" />
-		</ia:EventTriggerBehavior>
-	</i:Interaction.Behaviors>
-	<Grid ColumnDefinitions="105,*, 40,40"
-		  RowDefinitions="40,*">
-		<TextBlock Classes="PageHeader"
-				   Text="Мониторы" />
-		<TextBox
-			Grid.Column="1"
-			Margin="10,5,10,5"
-			MaxLength="50"
-			Text="{Binding SearchText}"
-			UseFloatingWatermark="False"
-			Watermark="Поиск по названию, номерам и сотруднику">
-			<i:Interaction.Behaviors>
-				<ia:EventTriggerBehavior EventName="KeyUp">
-					<ia:InvokeCommandAction Command="{Binding SearchBoxKeyUpCommand}"
-											PassEventArgsToCommand="True" />
-				</ia:EventTriggerBehavior>
-			</i:Interaction.Behaviors>
-		</TextBox>
-		<Image Grid.Column="2"
-			   Source="/Assets/Images/excel.png">
-			<i:Interaction.Behaviors>
-				<ia:EventTriggerBehavior EventName="Tapped">
-					<ia:InvokeCommandAction Command="{Binding CreateExcelTable}" />
-				</ia:EventTriggerBehavior>
-			</i:Interaction.Behaviors>
-		</Image>
-		<Image Grid.Column="3"
-			   Source="/Assets/Images/add.png">
-			<i:Interaction.Behaviors>
-				<ia:EventTriggerBehavior EventName="Tapped">
-					<ia:InvokeCommandAction Command="{Binding OpenAddMonitorWindow}" />
-				</ia:EventTriggerBehavior>
-			</i:Interaction.Behaviors>
-		</Image>
-		<DataGrid
-			Grid.Row="1"
-			Grid.ColumnSpan="6"
-			ItemsSource="{Binding Monitors}"
-			SelectedItem="{Binding SelectedMonitor}">
-			<DataGrid.ContextMenu>
-				<ContextMenu>
-					<MenuItem Command="{Binding OpenEditMonitorWindow}"
-							  Header="Редактировать" />
-					<MenuItem Command="{Binding RemoveMonitor}"
-							  Header="Удалить" />
-				</ContextMenu>
-			</DataGrid.ContextMenu>
-			<DataGrid.Columns>
-				<DataGridTextColumn Binding="{Binding Name}"
-									Header="Наименование монитора" />
-				<DataGridTextColumn Binding="{Binding ScreenSize}"
-									Header="Размер экрана" />
-				<DataGridTextColumn Binding="{Binding ScreenResolution}"
-									Header="Разрешение экрана" />
-				<DataGridTextColumn Binding="{Binding InventarNumber}"
-									Header="Инвентарный" />
-				<DataGridTextColumn Binding="{Binding SerialNumber}"
-									Header="Серийный" />
-				<DataGridTextColumn Binding="{Binding YearRelease}"
-									Header="Год выпуска" />
-				<DataGridTextColumn Binding="{Binding IsDecommissioned}"
-									Header="Списан" />
-				<DataGridTextColumn Binding="{Binding IsBroken}"
-									Header="Сломан" />
-				<DataGridTextColumn Binding="{Binding IsStock}"
-									Header="На складе" />
-				<DataGridTextColumn Binding="{Binding BreakdownDescription}"
-									Header="Описание поломки" />
-				<DataGridTextColumn Binding="{Binding Computer.User.FIO}"
-									Header="ФИО сотрудника" />
-				<DataGridTextColumn Binding="{Binding Computer.NumberCabinet}"
-									Header="Кабинет" />
-			</DataGrid.Columns>
-		</DataGrid>
-	</Grid>
+    x:Class="SudInfo.Avalonia.Views.Pages.MonitorsPage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="using:Avalonia.Xaml.Interactivity"
+    xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    xmlns:vm="using:SudInfo.Avalonia.ViewModels.PageViewModels"
+    x:DataType="vm:MonitorsPageViewModel">
+    <i:Interaction.Behaviors>
+        <ia:EventTriggerBehavior EventName="Initialized">
+            <ia:InvokeCommandAction Command="{Binding LoadMonitors}" />
+        </ia:EventTriggerBehavior>
+    </i:Interaction.Behaviors>
+    <Grid ColumnDefinitions="130,*, 40,40"
+          RowDefinitions="45,*">
+        <TextBlock Classes="PageHeader"
+                   Text="Мониторы" />
+        <TextBox
+            Grid.Column="1"
+            Margin="10,5,10,5"
+            MaxLength="50"
+            Text="{Binding SearchText}"
+            UseFloatingPlaceholder="False"
+            PlaceholderText="Поиск по названию, номерам и сотруднику">
+            <i:Interaction.Behaviors>
+                <ia:EventTriggerBehavior EventName="KeyUp">
+                    <ia:InvokeCommandAction Command="{Binding SearchBoxKeyUpCommand}"
+                                            PassEventArgsToCommand="True" />
+                </ia:EventTriggerBehavior>
+            </i:Interaction.Behaviors>
+        </TextBox>
+        <Image Grid.Column="2"
+               Source="/Assets/Images/excel.png">
+            <i:Interaction.Behaviors>
+                <ia:EventTriggerBehavior EventName="Tapped">
+                    <ia:InvokeCommandAction Command="{Binding CreateExcelTable}" />
+                </ia:EventTriggerBehavior>
+            </i:Interaction.Behaviors>
+        </Image>
+        <Image Grid.Column="3"
+               Source="/Assets/Images/add.png">
+            <i:Interaction.Behaviors>
+                <ia:EventTriggerBehavior EventName="Tapped">
+                    <ia:InvokeCommandAction Command="{Binding OpenAddMonitorWindow}" />
+                </ia:EventTriggerBehavior>
+            </i:Interaction.Behaviors>
+        </Image>
+        <DataGrid
+            Grid.Row="1"
+            Grid.ColumnSpan="6"
+            ItemsSource="{Binding Monitors}"
+            SelectedItem="{Binding SelectedMonitor}">
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Command="{Binding OpenEditMonitorWindow}"
+                              Header="Редактировать" />
+                    <MenuItem Command="{Binding RemoveMonitor}"
+                              Header="Удалить" />
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Name}"
+                                    Header="Наименование монитора" />
+                <DataGridTextColumn Binding="{Binding ScreenSize}"
+                                    Header="Размер экрана" />
+                <DataGridTextColumn Binding="{Binding ScreenResolution}"
+                                    Header="Разрешение экрана" />
+                <DataGridTextColumn Binding="{Binding InventarNumber}"
+                                    Header="Инвентарный" />
+                <DataGridTextColumn Binding="{Binding SerialNumber}"
+                                    Header="Серийный" />
+                <DataGridTextColumn Binding="{Binding YearRelease}"
+                                    Header="Год выпуска" />
+                <DataGridTextColumn Binding="{Binding IsDecommissioned}"
+                                    Header="Списан" />
+                <DataGridTextColumn Binding="{Binding IsBroken}"
+                                    Header="Сломан" />
+                <DataGridTextColumn Binding="{Binding IsStock}"
+                                    Header="На складе" />
+                <DataGridTextColumn Binding="{Binding BreakdownDescription}"
+                                    Header="Описание поломки" />
+                <DataGridTextColumn Binding="{Binding Computer.User.FIO}"
+                                    Header="ФИО сотрудника" />
+                <DataGridTextColumn Binding="{Binding Computer.NumberCabinet}"
+                                    Header="Кабинет" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
 </UserControl>

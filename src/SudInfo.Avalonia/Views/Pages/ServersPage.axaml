@@ -1,153 +1,174 @@
 <UserControl
-	x:Class="SudInfo.Avalonia.Views.Pages.ServersPage"
-	xmlns="https://github.com/avaloniaui"
-	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-	xmlns:i="using:Avalonia.Xaml.Interactivity"
-	xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
-	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	xmlns:models="using:SudInfo.EfDataAccessLibrary.Models"
-	xmlns:viewModels="using:SudInfo.Avalonia.ViewModels.PageViewModels"
-	Name="Root"
-	d:DesignHeight="450"
-	d:DesignWidth="800"
-	x:DataType="viewModels:ServersPageViewModel"
-	mc:Ignorable="d">
-	<i:Interaction.Behaviors>
-		<ia:EventTriggerBehavior EventName="Initialized">
-			<ia:InvokeCommandAction Command="{Binding LoadServerRacks}" />
-		</ia:EventTriggerBehavior>
-	</i:Interaction.Behaviors>
-	<Grid>
-		<StackPanel HorizontalAlignment="Center"
-					Orientation="Horizontal">
-			<ItemsControl ItemsSource="{Binding ServerRacks}">
-				<ItemsControl.ItemsPanel>
-					<ItemsPanelTemplate>
-						<StackPanel Orientation="Horizontal" />
-					</ItemsPanelTemplate>
-				</ItemsControl.ItemsPanel>
-				<ItemsControl.ItemTemplate>
-					<DataTemplate DataType="models:ServerRack">
-						<StackPanel Margin="5">
-							<Grid ColumnDefinitions="*,30"
-								  RowDefinitions="*,*">
-								<TextBlock Margin="0,10,0,0"
-										   Text="Серверная стойка" />
-								<TextBlock
-									Grid.Row="2"
-									Margin="0,0,0,10"
-									Text="{Binding InventarNumber}" />
-								<Image
-									Grid.RowSpan="2"
-									Grid.Column="2"
-									Source="/Assets/Images/remove.png">
-									<i:Interaction.Behaviors>
-										<EventTriggerBehavior EventName="Tapped">
-											<InvokeCommandAction Command="{Binding #Root.DataContext.RemoveServerRackCommand}"
-																 CommandParameter="{Binding Id}" />
-										</EventTriggerBehavior>
-									</i:Interaction.Behaviors>
-								</Image>
-							</Grid>
-							<Border Classes="BorderStyle"
-									Width="300">
-								<StackPanel>
-									<ItemsControl ItemsSource="{Binding Servers}">
-										<ItemsControl.ItemTemplate>
-											<DataTemplate DataType="models:Server">
-												<Border Classes="BorderStyle">
-													<StackPanel>
-														<TextBlock Text="{Binding Name}" />
-														<TextBlock Text="{Binding IpAddress}" />
-														<TextBlock Text="{Binding OperatingSystem}" />
-														<Grid Height="30"
-															  ColumnDefinitions="30,30,30,*,30,30">
-															<Image Source="/Assets/Images/eye.png">
-																<i:Interaction.Behaviors>
-																	<EventTriggerBehavior EventName="Tapped">
-																		<InvokeCommandAction Command="{Binding #Root.DataContext.ViewServerCommand}"
-																							 CommandParameter="{Binding Id}" />
-																	</EventTriggerBehavior>
-																</i:Interaction.Behaviors>
-															</Image>
-															<Image Source="/Assets/Images/edit.png"
-																   Grid.Column="1">
-																<i:Interaction.Behaviors>
-																	<EventTriggerBehavior EventName="Tapped">
-																		<InvokeCommandAction Command="{Binding #Root.DataContext.EditServerCommand}"
-																							 CommandParameter="{Binding Id}" />
-																	</EventTriggerBehavior>
-																</i:Interaction.Behaviors>
-															</Image>
-															<Image Source="/Assets/Images/remove.png"
-																   Grid.Column="2">
-																<i:Interaction.Behaviors>
-																	<EventTriggerBehavior EventName="Tapped">
-																		<InvokeCommandAction Command="{Binding #Root.DataContext.RemoveServerCommand}"
-																							 CommandParameter="{Binding Id}" />
-																	</EventTriggerBehavior>
-																</i:Interaction.Behaviors>
-															</Image>
-															<Image Source="/Assets/Images/arrow.png"
-																   Grid.Column="4">
-																<i:Interaction.Behaviors>
-																	<EventTriggerBehavior EventName="Tapped">
-																		<InvokeCommandAction Command="{Binding #Root.DataContext.UpServerPositionInServerRack}"
-																							 CommandParameter="{Binding Id}" />
-																	</EventTriggerBehavior>
-																</i:Interaction.Behaviors>
-															</Image>
-															<Image Source="/Assets/Images/arrow.png"
-																   Grid.Column="5"
-																   RenderTransform="rotate(180deg)">
-																<i:Interaction.Behaviors>
-																	<EventTriggerBehavior EventName="Tapped">
-																		<InvokeCommandAction Command="{Binding #Root.DataContext.DownServerPositionInServerRack}"
-																							 CommandParameter="{Binding Id}" />
-																	</EventTriggerBehavior>
-																</i:Interaction.Behaviors>
-															</Image>
-														</Grid>
-													</StackPanel>
-												</Border>
-											</DataTemplate>
-										</ItemsControl.ItemTemplate>
-									</ItemsControl>
-									<Border Classes="BorderStyle">
-										<Image
-											Height="50"
-											HorizontalAlignment="Center"
-											VerticalAlignment="Center"
-											Source="/Assets/Images/add.png">
-											<i:Interaction.Behaviors>
-												<ia:EventTriggerBehavior EventName="Tapped">
-													<ia:InvokeCommandAction Command="{Binding #Root.DataContext.OpenAddServerWindowCommand}"
-																			CommandParameter="{Binding}" />
-												</ia:EventTriggerBehavior>
-											</i:Interaction.Behaviors>
-										</Image>
-									</Border>
-								</StackPanel>
-							</Border>
-						</StackPanel>
-					</DataTemplate>
-				</ItemsControl.ItemTemplate>
-			</ItemsControl>
-			<Border Classes="BorderStyle"
-					Width="300">
-				<Image
-					Height="50"
-					HorizontalAlignment="Center"
-					VerticalAlignment="Center"
-					Source="/Assets/Images/add.png">
-					<i:Interaction.Behaviors>
-						<ia:EventTriggerBehavior EventName="Tapped">
-							<ia:InvokeCommandAction Command="{Binding OpenAddServerRackWindow}" />
-						</ia:EventTriggerBehavior>
-					</i:Interaction.Behaviors>
-				</Image>
-			</Border>
-		</StackPanel>
-	</Grid>
+    x:Class="SudInfo.Avalonia.Views.Pages.ServersPage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="using:Avalonia.Xaml.Interactivity"
+    xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:SudInfo.EfDataAccessLibrary.Models"
+    xmlns:viewModels="using:SudInfo.Avalonia.ViewModels.PageViewModels"
+    Name="Root"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:DataType="viewModels:ServersPageViewModel"
+    mc:Ignorable="d">
+    <i:Interaction.Behaviors>
+        <ia:EventTriggerBehavior EventName="Initialized">
+            <ia:InvokeCommandAction Command="{Binding LoadServerRacks}" />
+        </ia:EventTriggerBehavior>
+    </i:Interaction.Behaviors>
+    <Grid>
+        <StackPanel HorizontalAlignment="Center"
+                    Orientation="Horizontal">
+            <ItemsControl ItemsSource="{Binding ServerRacks}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="models:ServerRack">
+                        <StackPanel Margin="5">
+                            <Grid ColumnDefinitions="*,30"
+                                  RowDefinitions="*,*">
+                                <TextBlock Margin="0,10,0,0"
+                                           Text="Серверная стойка" />
+                                <TextBlock
+                                    Grid.Row="2"
+                                    Margin="0,0,0,10"
+                                    Text="{Binding InventarNumber}" />
+                                <Image
+                                    Grid.RowSpan="2"
+                                    Grid.Column="2"
+                                    Source="/Assets/Images/remove.png">
+                                    <i:Interaction.Behaviors>
+                                        <EventTriggerBehavior EventName="Tapped">
+                                            <InvokeCommandAction
+                                                Command="{Binding #Root.DataContext.RemoveServerRackCommand}"
+                                                CommandParameter="{Binding Id}" />
+                                        </EventTriggerBehavior>
+                                    </i:Interaction.Behaviors>
+                                </Image>
+                            </Grid>
+                            <Border Classes="BorderStyle"
+                                    Width="300">
+                                <StackPanel>
+                                    <ItemsControl ItemsSource="{Binding Servers}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate DataType="models:Server">
+                                                <Border Classes="BorderStyle">
+                                                    <StackPanel>
+                                                        <TextBlock Text="{Binding Name}" />
+                                                        <TextBlock
+                                                            Text="{Binding IpAddress}" />
+                                                        <TextBlock
+                                                            Text="{Binding OperatingSystem}" />
+                                                        <Grid Height="30"
+                                                                ColumnDefinitions="30,30,30,*,30,30">
+                                                            <Image
+                                                                Source="/Assets/Images/eye.png">
+                                                                <i:Interaction.Behaviors>
+                                                                    <EventTriggerBehavior
+                                                                        EventName="Tapped">
+                                                                        <InvokeCommandAction
+                                                                            Command="{Binding #Root.DataContext.ViewServerCommand}"
+                                                                            CommandParameter="{Binding Id}" />
+                                                                    </EventTriggerBehavior>
+                                                                </i:Interaction.Behaviors>
+                                                            </Image>
+                                                            <Image
+                                                                Source="/Assets/Images/edit.png"
+                                                                Grid.Column="1">
+                                                                <i:Interaction.Behaviors>
+                                                                    <EventTriggerBehavior
+                                                                        EventName="Tapped">
+                                                                        <InvokeCommandAction
+                                                                            Command="{Binding #Root.DataContext.EditServerCommand}"
+                                                                            CommandParameter="{Binding Id}" />
+                                                                    </EventTriggerBehavior>
+                                                                </i:Interaction.Behaviors>
+                                                            </Image>
+                                                            <Image
+                                                                Source="/Assets/Images/remove.png"
+                                                                Grid.Column="2">
+                                                                <i:Interaction.Behaviors>
+                                                                    <EventTriggerBehavior
+                                                                        EventName="Tapped">
+                                                                        <InvokeCommandAction
+                                                                            Command="{Binding #Root.DataContext.RemoveServerCommand}"
+                                                                            CommandParameter="{Binding Id}" />
+                                                                    </EventTriggerBehavior>
+                                                                </i:Interaction.Behaviors>
+                                                            </Image>
+                                                            <Image
+                                                                Source="/Assets/Images/arrow.png"
+                                                                Grid.Column="4">
+                                                                <i:Interaction.Behaviors>
+                                                                    <EventTriggerBehavior
+                                                                        EventName="Tapped">
+                                                                        <InvokeCommandAction
+                                                                            Command="{Binding #Root.DataContext.UpServerPositionInServerRack}"
+                                                                            CommandParameter="{Binding Id}" />
+                                                                    </EventTriggerBehavior>
+                                                                </i:Interaction.Behaviors>
+                                                            </Image>
+                                                            <Image
+                                                                Source="/Assets/Images/arrow.png"
+                                                                Grid.Column="5"
+                                                                RenderTransform="rotate(180deg)">
+                                                                <i:Interaction.Behaviors>
+                                                                    <EventTriggerBehavior
+                                                                        EventName="Tapped">
+                                                                        <InvokeCommandAction
+                                                                            Command="{Binding #Root.DataContext.DownServerPositionInServerRack}"
+                                                                            CommandParameter="{Binding Id}" />
+                                                                    </EventTriggerBehavior>
+                                                                </i:Interaction.Behaviors>
+                                                            </Image>
+                                                        </Grid>
+                                                    </StackPanel>
+                                                </Border>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                    <Border Classes="BorderStyle">
+                                        <Image
+                                            Height="50"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Source="/Assets/Images/add.png">
+                                            <i:Interaction.Behaviors>
+                                                <ia:EventTriggerBehavior
+                                                    EventName="Tapped">
+                                                    <ia:InvokeCommandAction
+                                                        Command="{Binding #Root.DataContext.OpenAddServerWindowCommand}"
+                                                        CommandParameter="{Binding}" />
+                                                </ia:EventTriggerBehavior>
+                                            </i:Interaction.Behaviors>
+                                        </Image>
+                                    </Border>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <Border Classes="BorderStyle"
+                    Width="300">
+                <Image
+                    Height="50"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Source="/Assets/Images/add.png">
+                    <i:Interaction.Behaviors>
+                        <ia:EventTriggerBehavior EventName="Tapped">
+                            <ia:InvokeCommandAction
+                                Command="{Binding OpenAddServerRackWindow}" />
+                        </ia:EventTriggerBehavior>
+                    </i:Interaction.Behaviors>
+                </Image>
+            </Border>
+        </StackPanel>
+    </Grid>
 </UserControl>

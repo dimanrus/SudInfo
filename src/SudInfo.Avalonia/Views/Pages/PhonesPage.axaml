@@ -1,92 +1,92 @@
 <UserControl
-	x:Class="SudInfo.Avalonia.Views.Pages.PhonesPage"
-	xmlns="https://github.com/avaloniaui"
-	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-	xmlns:i="using:Avalonia.Xaml.Interactivity"
-	xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
-	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	xmlns:viewModels="clr-namespace:SudInfo.Avalonia.ViewModels.PageViewModels"
-	x:DataType="viewModels:PhonesPageViewModel"
-	mc:Ignorable="d">
-	<i:Interaction.Behaviors>
-		<ia:EventTriggerBehavior EventName="Initialized">
-			<ia:InvokeCommandAction Command="{Binding LoadPhones}" />
-		</ia:EventTriggerBehavior>
-	</i:Interaction.Behaviors>
-	<Grid ColumnDefinitions="140, *, 40,40"
-		  RowDefinitions="40,*">
-		<TextBlock Classes="PageHeader"
-				   Text="Телефоны" />
-		<TextBox
-			Grid.Column="1"
-			Margin="10,5,10,5"
-			MaxLength="50"
-			Text="{Binding SearchText}"
-			UseFloatingWatermark="False"
-			Watermark="Поиск по названию, номерам и сотруднику">
-			<i:Interaction.Behaviors>
-				<ia:EventTriggerBehavior EventName="KeyUp">
-					<ia:InvokeCommandAction Command="{Binding SearchBoxKeyUpCommand}"
-											PassEventArgsToCommand="True" />
-				</ia:EventTriggerBehavior>
-			</i:Interaction.Behaviors>
-		</TextBox>
-		<Image Grid.Column="2"
-			   Source="/Assets/Images/excel.png">
-			<i:Interaction.Behaviors>
-				<ia:EventTriggerBehavior EventName="Tapped">
-					<ia:InvokeCommandAction Command="{Binding CreateExcelTable}" />
-				</ia:EventTriggerBehavior>
-			</i:Interaction.Behaviors>
-		</Image>
-		<Image Grid.Column="4"
-			   Source="/Assets/Images/add.png">
-			<i:Interaction.Behaviors>
-				<ia:EventTriggerBehavior EventName="Tapped">
-					<ia:InvokeCommandAction Command="{Binding OpenAddPhoneWindow}" />
-				</ia:EventTriggerBehavior>
-			</i:Interaction.Behaviors>
-		</Image>
-		<DataGrid
-			Grid.Row="1"
-			Grid.ColumnSpan="4"
-			ItemsSource="{Binding Phones}"
-			SelectedItem="{Binding SelectedPhone}">
-			<DataGrid.ContextMenu>
-				<ContextMenu>
-					<MenuItem Command="{Binding OpenEditPhoneWindow}"
-							  Header="Редактировать" />
-					<MenuItem Command="{Binding RemovePhone}"
-							  Header="Удалить" />
-				</ContextMenu>
-			</DataGrid.ContextMenu>
-			<DataGrid.Columns>
-				<DataGridTextColumn Binding="{Binding Name}"
-									Header="Название" />
-				<DataGridTextColumn Binding="{Binding InventarNumber}"
-									Header="Инвентарный" />
-				<DataGridTextColumn Binding="{Binding SerialNumber}"
-									Header="Серийный" />
-				<DataGridTextColumn Binding="{Binding User.FIO}"
-									Header="ФИО сотрудника" />
-				<DataGridTextColumn Binding="{Binding User.NumberCabinet}"
-									Header="Кабинет" />
-				<DataGridTextColumn Binding="{Binding User.LocalPhone}"
-									Header="Внутренний номер телефона" />
-				<DataGridTextColumn Binding="{Binding User.WorkPhone}"
-									Header="Внешний номер телефона" />
-				<DataGridTextColumn Binding="{Binding IsDecommissioned}"
-									Header="Списан" />
-				<DataGridTextColumn Binding="{Binding IsBroken}"
-									Header="Сломан" />
-				<DataGridTextColumn Binding="{Binding IsStock}"
-									Header="На складе" />
-				<DataGridTextColumn Binding="{Binding IsPersonal}"
-									Header="Личный" />
-				<DataGridTextColumn Binding="{Binding BreakdownDescription}"
-									Header="Описание поломки" />
-			</DataGrid.Columns>
-		</DataGrid>
-	</Grid>
+    x:Class="SudInfo.Avalonia.Views.Pages.PhonesPage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="using:Avalonia.Xaml.Interactivity"
+    xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="clr-namespace:SudInfo.Avalonia.ViewModels.PageViewModels"
+    x:DataType="viewModels:PhonesPageViewModel"
+    mc:Ignorable="d">
+    <i:Interaction.Behaviors>
+        <ia:EventTriggerBehavior EventName="Initialized">
+            <ia:InvokeCommandAction Command="{Binding LoadPhones}" />
+        </ia:EventTriggerBehavior>
+    </i:Interaction.Behaviors>
+    <Grid ColumnDefinitions="140, *, 40,40"
+          RowDefinitions="45,*">
+        <TextBlock Classes="PageHeader"
+                   Text="Телефоны" />
+        <TextBox
+            Grid.Column="1"
+            Margin="10,5,10,5"
+            MaxLength="50"
+            Text="{Binding SearchText}"
+            UseFloatingPlaceholder="False"
+            PlaceholderText="Поиск по названию, номерам и сотруднику">
+            <i:Interaction.Behaviors>
+                <ia:EventTriggerBehavior EventName="KeyUp">
+                    <ia:InvokeCommandAction Command="{Binding SearchBoxKeyUpCommand}"
+                                            PassEventArgsToCommand="True" />
+                </ia:EventTriggerBehavior>
+            </i:Interaction.Behaviors>
+        </TextBox>
+        <Image Grid.Column="2"
+               Source="/Assets/Images/excel.png">
+            <i:Interaction.Behaviors>
+                <ia:EventTriggerBehavior EventName="Tapped">
+                    <ia:InvokeCommandAction Command="{Binding CreateExcelTable}" />
+                </ia:EventTriggerBehavior>
+            </i:Interaction.Behaviors>
+        </Image>
+        <Image Grid.Column="3"
+               Source="/Assets/Images/add.png">
+            <i:Interaction.Behaviors>
+                <ia:EventTriggerBehavior EventName="Tapped">
+                    <ia:InvokeCommandAction Command="{Binding OpenAddPhoneWindow}" />
+                </ia:EventTriggerBehavior>
+            </i:Interaction.Behaviors>
+        </Image>
+        <DataGrid
+            Grid.Row="1"
+            Grid.ColumnSpan="4"
+            ItemsSource="{Binding Phones}"
+            SelectedItem="{Binding SelectedPhone}">
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Command="{Binding OpenEditPhoneWindow}"
+                              Header="Редактировать" />
+                    <MenuItem Command="{Binding RemovePhone}"
+                              Header="Удалить" />
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Name}"
+                                    Header="Название" />
+                <DataGridTextColumn Binding="{Binding InventarNumber}"
+                                    Header="Инвентарный" />
+                <DataGridTextColumn Binding="{Binding SerialNumber}"
+                                    Header="Серийный" />
+                <DataGridTextColumn Binding="{Binding User.FIO}"
+                                    Header="ФИО сотрудника" />
+                <DataGridTextColumn Binding="{Binding User.NumberCabinet}"
+                                    Header="Кабинет" />
+                <DataGridTextColumn Binding="{Binding User.LocalPhone}"
+                                    Header="Внутренний номер телефона" />
+                <DataGridTextColumn Binding="{Binding User.WorkPhone}"
+                                    Header="Внешний номер телефона" />
+                <DataGridTextColumn Binding="{Binding IsDecommissioned}"
+                                    Header="Списан" />
+                <DataGridTextColumn Binding="{Binding IsBroken}"
+                                    Header="Сломан" />
+                <DataGridTextColumn Binding="{Binding IsStock}"
+                                    Header="На складе" />
+                <DataGridTextColumn Binding="{Binding IsPersonal}"
+                                    Header="Личный" />
+                <DataGridTextColumn Binding="{Binding BreakdownDescription}"
+                                    Header="Описание поломки" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
 </UserControl>

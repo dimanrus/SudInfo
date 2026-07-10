@@ -1,12 +1,11 @@
 namespace SudInfo.Avalonia.Views.Windows;
+
 public partial class ServerRackWindow : ReactiveWindow<ServerRackWindowViewModel>
 {
-    public ServerRackWindow()
-    {
+    public ServerRackWindow() {
         InitializeComponent();
     }
-    public ServerRackWindow(WindowType windowType, int? id = null)
-    {
+    public ServerRackWindow(WindowType windowType, int? id = null) {
         var viewModel = ServiceCollectionExtension.ServiceProvider.GetService<ServerRackWindowViewModel>()!;
         DataContext = viewModel;
         InitializeComponent();

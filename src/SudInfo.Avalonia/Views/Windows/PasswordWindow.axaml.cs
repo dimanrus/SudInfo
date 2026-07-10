@@ -1,12 +1,11 @@
 namespace SudInfo.Avalonia.Views.Windows;
+
 public partial class PasswordWindow : ReactiveWindow<PasswordWindowViewModel>
 {
-    public PasswordWindow()
-    {
+    public PasswordWindow() {
         InitializeComponent();
     }
-    public PasswordWindow(WindowType windowType, int? id = null)
-    {
+    public PasswordWindow(WindowType windowType, int? id = null) {
         var viewModel = ServiceCollectionExtension.ServiceProvider.GetService<PasswordWindowViewModel>();
         DataContext = viewModel;
         InitializeComponent();

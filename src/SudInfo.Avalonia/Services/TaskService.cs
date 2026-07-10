@@ -1,25 +1,22 @@
 ﻿namespace SudInfo.Avalonia.Services;
 
-public class TaskService(SudInfoDatabaseContext context) : BaseService<TaskEntity>(context)
+public class TaskService(
+    SudInfoDatabaseContext context) : BaseService<TaskEntity>(context)
 {
-    public async Task<IReadOnlyCollection<TaskEntity>> Get()
-    {
+    public async Task<IReadOnlyCollection<TaskEntity>> Get() {
         return await context.Tasks.AsNoTracking()
-                                                     .ToListAsync();
+                            .ToListAsync();
     }
 
-    public async Task<Result> CompleteTask(int id)
-    {
-        try
-        {
+    public async Task<Result> CompleteTask(int id) {
+        try {
             var task = await context.Tasks.AsNoTracking()
-                                          .FirstAsync(x => x.Id == id);
+                                    .FirstAsync(x => x.Id == id);
             context.Tasks.Remove(task);
             await context.SaveChangesAsync();
             return new(true);
         }
-        catch (Exception ex)
-        {
+        catch (Exception ex) {
             return new(message: ex.Message);
         }
     }

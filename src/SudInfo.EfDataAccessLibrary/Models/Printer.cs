@@ -47,7 +47,7 @@ public class Printer : BaseModel
 
     [XLColumn(Header = "Номер кабинета")]
     [NotMapped]
-    public int Cabinet => (Computer == null) ? NumberCabinet : Computer.Cabinet;
+    public int Cabinet => Computer == null ? NumberCabinet : Computer.Cabinet;
 }
 
 public enum PrinterType

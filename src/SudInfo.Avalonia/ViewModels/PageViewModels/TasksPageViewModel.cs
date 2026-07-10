@@ -1,38 +1,16 @@
 ﻿namespace SudInfo.Avalonia.ViewModels.PageViewModels;
 
-public class TasksPageViewModel : BaseRoutableViewModel
+public partial class TasksPageViewModel : BaseRoutableViewModel
 {
-    #region Services
-
-    private readonly NavigationService _navigationService;
-
-    private readonly TaskService _taskService;
-
-    #endregion
-
-    #region Collections
-
-    [Reactive]
-    public IReadOnlyCollection<TaskEntity>? Tasks { get; set; }
-
-    #endregion
-
     #region Private Variables
 
     private readonly EventHandler _eventHandlerClosedWindowDialog;
 
     #endregion
 
-    #region Commands
-
-    public ReactiveCommand<int, Unit> CompleteTaskCommand { get; init; }
-
-    #endregion
-
     #region Ctors
 
-    public TasksPageViewModel(NavigationService navigationService, TaskService taskService)
-    {
+    public TasksPageViewModel(NavigationService navigationService, TaskService taskService) {
         #region Serives Initialization
 
         _navigationService = navigationService;
@@ -42,11 +20,9 @@ public class TasksPageViewModel : BaseRoutableViewModel
 
         _eventHandlerClosedWindowDialog = async (s, e) => await LoadTasks();
 
-        CompleteTaskCommand = ReactiveCommand.Create<int>(async (int id) =>
-        {
+        CompleteTaskCommand = ReactiveCommand.Create<int>(async id => {
             var completeTaskResult = await _taskService.CompleteTask(id);
-            if (!completeTaskResult.Success)
-            {
+            if (!completeTaskResult.Success) {
                 await DialogService.ShowErrorMessageBox(completeTaskResult.Message);
                 return;
             }
@@ -56,15 +32,34 @@ public class TasksPageViewModel : BaseRoutableViewModel
 
     #endregion
 
+    #region Collections
+
+    [Reactive]
+    public partial IReadOnlyCollection<TaskEntity>? Tasks { get; set; }
+
+    #endregion
+
+    #region Commands
+
+    public ReactiveCommand<int, Unit> CompleteTaskCommand { get; init; }
+
+    #endregion
+
+    #region Services
+
+    private readonly NavigationService _navigationService;
+
+    private readonly TaskService _taskService;
+
+    #endregion
+
     #region Public Methods
 
-    public async Task LoadTasks()
-    {
+    public async Task LoadTasks() {
         Tasks = await _taskService.Get();
     }
 
-    public async Task OpenAddTaskWindow()
-    {
+    public async Task OpenAddTaskWindow() {
         await _navigationService.ShowTaskWindowDialog(_eventHandlerClosedWindowDialog);
     }
 

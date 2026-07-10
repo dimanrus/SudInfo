@@ -25,6 +25,7 @@ public class Server : BaseModel
 
     [XLColumn(Ignore = true)]
     public int? ServerRackId { get; set; }
+
     public ServerRack? ServerRack { get; set; }
 
     [XLColumn(Header = "Операционная система")]

@@ -1,6 +1,6 @@
 ﻿namespace SudInfo.Avalonia.ViewModels.WindowViewModels;
 
-public class ContactWindowViewModel : BaseViewModel
+public partial class ContactWindowViewModel : BaseViewModel
 {
     #region Services
 
@@ -8,24 +8,29 @@ public class ContactWindowViewModel : BaseViewModel
 
     #endregion
 
-    #region Properties
-    [Reactive]
-    public Contact Contact { get; set; } = new();
-    [Reactive]
-    public string SaveButtonText { get; private set; } = "Добавить контакт";
-    [Reactive]
-    public bool ButtonIsVisible { get; private set; } = false;
-    #endregion
-
     #region Constructors
-    public ContactWindowViewModel(ContactService contactService)
-    {
+
+    public ContactWindowViewModel(ContactService contactService) {
         #region Service Set
 
         _contactService = contactService;
 
         #endregion
     }
+
+    #endregion
+
+    #region Properties
+
+    [Reactive]
+    public partial Contact Contact { get; set; } = new();
+
+    [Reactive]
+    public partial string SaveButtonText { get; private set; } = "Добавить контакт";
+
+    [Reactive]
+    public partial bool ButtonIsVisible { get; private set; } = false;
+
     #endregion
 
     #region Private Fields
@@ -38,42 +43,34 @@ public class ContactWindowViewModel : BaseViewModel
 
     #region Public Methods
 
-    public async Task SaveContact()
-    {
+    public async Task SaveContact() {
         if (!ValidationModel(Contact))
             return;
-        Result result = _windowType switch
-        {
+        var result = _windowType switch {
             WindowType.Add => await _contactService.Add(Contact),
             _ => await _contactService.Update(Contact)
         };
-        if (!result.Success)
-        {
+        if (!result.Success) {
             await DialogService.ShowErrorMessageBox(result.Message);
             return;
         }
         _closedWindow();
     }
 
-    public async void Initialization(WindowType windowType, Action close, int? id = null)
-    {
+    public async void Initialization(WindowType windowType, Action close, int? id = null) {
         _windowType = windowType;
         _closedWindow = close;
 
-        if (windowType != WindowType.View)
-        {
+        if (windowType != WindowType.View) {
             ButtonIsVisible = true;
         }
-        if (id != null)
-        {
-            if (windowType != WindowType.View)
-            {
+        if (id != null) {
+            if (windowType != WindowType.View) {
                 ButtonIsVisible = true;
                 SaveButtonText = "Сохранить контакт";
             }
             var result = await _contactService.Get(id.GetValueOrDefault());
-            if (!result.Success)
-            {
+            if (!result.Success) {
                 await DialogService.ShowErrorMessageBox(result.Message);
                 return;
             }

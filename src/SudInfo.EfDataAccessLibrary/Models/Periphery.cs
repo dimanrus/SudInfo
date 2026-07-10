@@ -33,8 +33,7 @@ public class Periphery : BaseModel
 
     [XLColumn(Ignore = true)]
     [NotMapped]
-    public string Icon => Type switch
-    {
+    public string Icon => Type switch {
         PeripheryType.Мышь => "avares://SudInfo.Avalonia/Assets/Images/mouse.png",
         PeripheryType.Наушкники => "avares://SudInfo.Avalonia/Assets/Images/headphones.png",
         PeripheryType.Микрофон => "avares://SudInfo.Avalonia/Assets/Images/microphone.png",

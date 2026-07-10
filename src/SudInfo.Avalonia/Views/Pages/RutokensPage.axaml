@@ -1,66 +1,67 @@
 <UserControl
-	x:Class="SudInfo.Avalonia.Views.Pages.RutokensPage"
-	xmlns="https://github.com/avaloniaui"
-	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-	xmlns:i="using:Avalonia.Xaml.Interactivity"
-	xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
-	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	d:DesignHeight="450"
-	d:DesignWidth="800"
-	mc:Ignorable="d"
-	xmlns:vm="using:SudInfo.Avalonia.ViewModels.PageViewModels"
-	x:DataType="vm:RutokensPageViewModel">
-	<i:Interaction.Behaviors>
-		<ia:EventTriggerBehavior EventName="Initialized">
-			<ia:InvokeCommandAction Command="{Binding LoadRutokens}" />
-		</ia:EventTriggerBehavior>
-	</i:Interaction.Behaviors>
-	<Grid ColumnDefinitions="140, *, 40,40"
-		  RowDefinitions="40,*">
-		<TextBlock Classes="PageHeader"
-				   Text="ЭЦП Рутокен" />
-		<Image Grid.Column="2"
-			   Source="/Assets/Images/excel.png">
-			<i:Interaction.Behaviors>
-				<ia:EventTriggerBehavior EventName="Tapped">
-					<ia:InvokeCommandAction Command="{Binding CreateExcelTable}" />
-				</ia:EventTriggerBehavior>
-			</i:Interaction.Behaviors>
-		</Image>
-		<Image Grid.Column="3"
-			   Source="/Assets/Images/add.png">
-			<i:Interaction.Behaviors>
-				<ia:EventTriggerBehavior EventName="Tapped">
-					<ia:InvokeCommandAction Command="{Binding OpenAddRutokenWindow}" />
-				</ia:EventTriggerBehavior>
-			</i:Interaction.Behaviors>
-		</Image>
-		<DataGrid
-			Grid.Row="1"
-			Grid.ColumnSpan="6"
-			ItemsSource="{Binding Rutokens}"
-			SelectedItem="{Binding SelectedRutoken}">
-			<DataGrid.ContextMenu>
-				<ContextMenu>
-					<MenuItem Command="{Binding OpenEditRutokenWindow}"
-							  Header="Редактировать" />
-					<MenuItem Command="{Binding RemoveRutoken}"
-							  Header="Удалить" />
-				</ContextMenu>
-			</DataGrid.ContextMenu>
-			<DataGrid.Columns>
-				<DataGridTextColumn Binding="{Binding SerialNumberRutoken}"
-									Header="Серийный номер рутокен" />
-				<DataGridTextColumn Binding="{Binding NumberCertificate}"
-									Header="Номер сертификата" />
-				<DataGridTextColumn Binding="{Binding EndDateCertificate, StringFormat='dd.MM.yyyy'}"
-									Header="Дата окончания сертификата" />
-				<DataGridTextColumn Binding="{Binding User.FIO}"
-									Header="ФИО сотрудника" />
-				<DataGridTextColumn Binding="{Binding User.NumberCabinet}"
-									Header="Кабинет" />
-			</DataGrid.Columns>
-		</DataGrid>
-	</Grid>
+    x:Class="SudInfo.Avalonia.Views.Pages.RutokensPage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="using:Avalonia.Xaml.Interactivity"
+    xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    xmlns:vm="using:SudInfo.Avalonia.ViewModels.PageViewModels"
+    x:DataType="vm:RutokensPageViewModel">
+    <i:Interaction.Behaviors>
+        <ia:EventTriggerBehavior EventName="Initialized">
+            <ia:InvokeCommandAction Command="{Binding LoadRutokens}" />
+        </ia:EventTriggerBehavior>
+    </i:Interaction.Behaviors>
+    <Grid ColumnDefinitions="155, *, 40,40"
+          RowDefinitions="45,*">
+        <TextBlock Classes="PageHeader"
+                   Text="ЭЦП Рутокен" />
+        <Image Grid.Column="2"
+               Source="/Assets/Images/excel.png">
+            <i:Interaction.Behaviors>
+                <ia:EventTriggerBehavior EventName="Tapped">
+                    <ia:InvokeCommandAction Command="{Binding CreateExcelTable}" />
+                </ia:EventTriggerBehavior>
+            </i:Interaction.Behaviors>
+        </Image>
+        <Image Grid.Column="3"
+               Source="/Assets/Images/add.png">
+            <i:Interaction.Behaviors>
+                <ia:EventTriggerBehavior EventName="Tapped">
+                    <ia:InvokeCommandAction Command="{Binding OpenAddRutokenWindow}" />
+                </ia:EventTriggerBehavior>
+            </i:Interaction.Behaviors>
+        </Image>
+        <DataGrid
+            Grid.Row="1"
+            Grid.ColumnSpan="6"
+            ItemsSource="{Binding Rutokens}"
+            SelectedItem="{Binding SelectedRutoken}">
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Command="{Binding OpenEditRutokenWindow}"
+                              Header="Редактировать" />
+                    <MenuItem Command="{Binding RemoveRutoken}"
+                              Header="Удалить" />
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding SerialNumberRutoken}"
+                                    Header="Серийный номер рутокен" />
+                <DataGridTextColumn Binding="{Binding NumberCertificate}"
+                                    Header="Номер сертификата" />
+                <DataGridTextColumn
+                    Binding="{Binding EndDateCertificate, StringFormat='dd.MM.yyyy'}"
+                    Header="Дата окончания сертификата" />
+                <DataGridTextColumn Binding="{Binding User.FIO}"
+                                    Header="ФИО сотрудника" />
+                <DataGridTextColumn Binding="{Binding User.NumberCabinet}"
+                                    Header="Кабинет" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
 </UserControl>

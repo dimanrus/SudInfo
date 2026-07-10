@@ -8,29 +8,29 @@
         xmlns:viewModels="clr-namespace:SudInfo.Avalonia.ViewModels.WindowViewModels;assembly=SudInfo.Avalonia"
         WindowStartupLocation="CenterOwner"
         x:DataType="viewModels:ContactWindowViewModel">
-  <StackPanel HorizontalAlignment="Center"
-              Margin="5"
-              Spacing="5"
-              Width="280">
-    <TextBox
-      MaxLength="100"
-      Text="{Binding Contact.Name}"
-      Watermark="Имя"/>
-    <TextBox Watermark="Номер телефона"
-             MaxLength="11"
-             Text="{Binding Contact.Phone}"/>
-    <TextBox Watermark="Email"
-             MaxLength="100"
-             Text="{Binding Contact.Email}"/>
-    <TextBox Watermark="Описание"
-             MaxLength="500"
-             Height="130"
-             Text="{Binding Contact.Description}"/>
-    <Button Content="{Binding SaveButtonText}"
-            Command="{Binding SaveContact}"
-            IsVisible="{Binding ButtonIsVisible}"
-            Margin="0 5 0 0"
-            HorizontalAlignment="Stretch"
-            HorizontalContentAlignment="Center"/>
-  </StackPanel>
+    <StackPanel HorizontalAlignment="Center"
+                Margin="5"
+                Spacing="5"
+                Width="280">
+        <TextBox
+            MaxLength="100"
+            Text="{Binding Contact.Name}"
+            PlaceholderText="Имя" />
+        <TextBox PlaceholderText="Номер телефона"
+                 MaxLength="11"
+                 Text="{Binding Contact.Phone}" />
+        <TextBox PlaceholderText="Email"
+                 MaxLength="100"
+                 Text="{Binding Contact.Email}" />
+        <TextBox PlaceholderText="Описание"
+                 MaxLength="500"
+                 Height="130"
+                 Text="{Binding Contact.Description}" />
+        <Button Content="{Binding SaveButtonText}"
+                Command="{Binding SaveContact}"
+                IsVisible="{Binding ButtonIsVisible}"
+                Margin="0 5 0 0"
+                HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Center" />
+    </StackPanel>
 </Window>

@@ -1,7 +1,27 @@
 ﻿namespace SudInfo.Avalonia.ViewModels.WindowViewModels;
 
-public class PhoneWindowViewModel : BaseViewModel
+public partial class PhoneWindowViewModel : BaseViewModel
 {
+    #region Ctors
+
+    public PhoneWindowViewModel(PhoneService phoneService, UserService userService) {
+        #region Service Initialization
+
+        _phoneService = phoneService;
+        _userService = userService;
+
+        #endregion
+    }
+
+    #endregion
+
+    #region Collections
+
+    [Reactive]
+    public partial IReadOnlyCollection<User>? Users { get; set; }
+
+    #endregion
+
     #region Services
 
     private readonly PhoneService _phoneService;
@@ -10,40 +30,19 @@ public class PhoneWindowViewModel : BaseViewModel
 
     #endregion
 
-    #region Collections
-
-    [Reactive]
-    public IReadOnlyCollection<User>? Users { get; set; }
-
-    #endregion
-
     #region Properties
 
     [Reactive]
-    public Phone Phone { get; set; } = new();
+    public partial Phone Phone { get; set; } = new();
 
     [Reactive]
-    public bool IsUser { get; set; }
+    public partial bool IsUser { get; set; }
 
     [Reactive]
-    public string SaveButtonText { get; private set; } = "Добавить телефон";
+    public partial string SaveButtonText { get; private set; } = "Добавить телефон";
 
     [Reactive]
-    public bool ButtonIsVisible { get; private set; }
-
-    #endregion
-
-    #region Ctors
-
-    public PhoneWindowViewModel(PhoneService phoneService, UserService userService)
-    {
-        #region Service Initialization
-
-        _phoneService = phoneService;
-        _userService = userService;
-
-        #endregion
-    }
+    public partial bool ButtonIsVisible { get; private set; }
 
     #endregion
 
@@ -57,48 +56,41 @@ public class PhoneWindowViewModel : BaseViewModel
 
     #region Public Methods
 
-    public async Task SavePhone()
-    {
+    public async Task SavePhone() {
         if (!ValidationModel(Phone))
             return;
         if (!IsUser)
             Phone.User = null;
         if (!Phone.IsBroken)
             Phone.BreakdownDescription = string.Empty;
-        Result computerResult = _windowType switch
-        {
+        var computerResult = _windowType switch {
             WindowType.Add => await _phoneService.Add(Phone),
             _ => await _phoneService.Update(Phone)
         };
-        if (!computerResult.Success)
-        {
+        if (!computerResult.Success) {
             await DialogService.ShowErrorMessageBox(computerResult.Message);
             return;
         }
         _closedWindow();
     }
 
-    public async void Initialization(WindowType windowType, Action close, int? id = null)
-    {
+    public async void Initialization(WindowType windowType, Action close, int? id = null) {
         Users = await _userService.Get();
 
         _windowType = windowType;
         _closedWindow = close;
 
-        if (windowType != WindowType.View)
-        {
+        if (windowType != WindowType.View) {
             ButtonIsVisible = true;
         }
         if (id == null)
             return;
-        if (windowType != WindowType.View)
-        {
+        if (windowType != WindowType.View) {
             ButtonIsVisible = true;
             SaveButtonText = "Сохранить телефон";
         }
         var result = await _phoneService.Get(id.GetValueOrDefault());
-        if (!result.Success)
-        {
+        if (!result.Success) {
             await DialogService.ShowErrorMessageBox(result.Message);
             return;
         }

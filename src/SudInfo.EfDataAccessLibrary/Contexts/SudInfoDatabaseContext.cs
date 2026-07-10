@@ -7,8 +7,7 @@ public class SudInfoDatabaseContext : DbContext
 {
     #region Ctors
 
-    public SudInfoDatabaseContext()
-    {
+    public SudInfoDatabaseContext() {
         Database.Migrate();
     }
 
@@ -16,15 +15,12 @@ public class SudInfoDatabaseContext : DbContext
 
     #region Configuration
 
-    protected override void OnConfiguring(DbContextOptionsBuilder options)
-    {
+    protected override void OnConfiguring(DbContextOptionsBuilder options) {
         options.UseSqlite("Data Source = SudInfoDatabase.db");
     }
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        modelBuilder.Entity<AppSetting>().HasData(new AppSetting()
-        {
+    protected override void OnModelCreating(ModelBuilder modelBuilder) {
+        modelBuilder.Entity<AppSetting>().HasData(new AppSetting {
             Id = 1,
             Theme = "Light"
         });
@@ -33,6 +29,7 @@ public class SudInfoDatabaseContext : DbContext
     #endregion
 
     #region Tables
+
     public DbSet<User> Users => Set<User>();
 
     public DbSet<Computer> Computers => Set<Computer>();

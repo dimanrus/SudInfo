@@ -15,90 +15,90 @@
     CanResize="False"
     WindowStartupLocation="CenterOwner"
     mc:Ignorable="d">
-  <i:Interaction.Behaviors>
-    <ia:EventTriggerBehavior EventName="Initialized">
-      <ia:InvokeCommandAction Command="{Binding LoadComputers}" />
-    </ia:EventTriggerBehavior>
-  </i:Interaction.Behaviors>
-  <Grid Margin="2"
-        ColumnDefinitions="*,*"
-        RowDefinitions="*,50">
-    <StackPanel Margin="5"
-                Spacing="5">
-      <TextBox
-          MaxLength="100"
-          Text="{Binding Printer.Name}"
-          Watermark="Название" />
-      <TextBox
-          MaxLength="15"
-          Text="{Binding Printer.Ip}"
-          Watermark="IP Адрес" />
-      <TextBox
-          IsEnabled="{Binding !IsChecked, ElementName=IsUserBox}"
-          MaxLength="3"
-          Text="{Binding Printer.NumberCabinet}"
-          Watermark="Номер кабинета" />
-      <ComboBox
-          HorizontalAlignment="Stretch"
-          ItemsSource="{Binding PrinterTypes}"
-          SelectedItem="{Binding Printer.Type}" />
-      <TextBox
-          MaxLength="50"
-          Text="{Binding Printer.SerialNumber}"
-          Watermark="Серийный номер" />
-      <TextBox
-          MaxLength="50"
-          Text="{Binding Printer.InventarNumber}"
-          Watermark="Инвентарный номер" />
-    </StackPanel>
-    <StackPanel Margin="5"
-                Spacing="5"
-                Grid.Column="1">
-      <TextBox
-          MaxLength="4"
-          Text="{Binding Printer.YearRelease}"
-          Watermark="Год выпуска" />
-      <CheckBox
-          Name="IsBrokenCheckBox"
-          Content="Сломан"
-          IsChecked="{Binding Printer.IsBroken}" />
-      <TextBox
-          Height="100"
-          IsEnabled="{Binding #IsBrokenCheckBox.IsChecked}"
-          MaxLength="200"
-          Text="{Binding Printer.BreakdownDescription}"
-          Watermark="Описание поломки" />
-      <CheckBox
-          Content="Списан"
-          IsChecked="{Binding Printer.IsDecommissioned}" />
-      <CheckBox
-          Content="На складе"
-          IsChecked="{Binding Printer.IsStock}" />
-      <StackPanel Orientation="Horizontal">
-        <CheckBox Name="IsUserBox" IsChecked="{Binding IsComputer}" />
-        <ComboBox
-            Width="257"
-            AutoScrollToSelectedItem="True"
-            IsEnabled="{Binding #IsUserBox.IsChecked}"
-            ItemsSource="{Binding Computers}"
-            PlaceholderText="Компьютер"
-            SelectedItem="{Binding Printer.Computer}">
-          <ComboBox.DataTemplates>
-            <DataTemplate x:DataType="{x:Type models:Computer}">
-              <TextBlock Text="{Binding ComputerNameWithUserSurFirstName}" />
-            </DataTemplate>
-          </ComboBox.DataTemplates>
-        </ComboBox>
-      </StackPanel>
-    </StackPanel>
-    <Button
-        Margin="2"
-        HorizontalAlignment="Stretch"
-        HorizontalContentAlignment="Center"
-        Command="{Binding SavePrinter}"
-        Content="{Binding SaveButtonText}"
-        IsVisible="{Binding IsButtonVisible}"
-        Grid.Row="1"
-        Grid.ColumnSpan="2"/>
-  </Grid>
+    <i:Interaction.Behaviors>
+        <ia:EventTriggerBehavior EventName="Initialized">
+            <ia:InvokeCommandAction Command="{Binding LoadComputers}" />
+        </ia:EventTriggerBehavior>
+    </i:Interaction.Behaviors>
+    <Grid Margin="2"
+          ColumnDefinitions="*,*"
+          RowDefinitions="*,50">
+        <StackPanel Margin="5"
+                    Spacing="5">
+            <TextBox
+                MaxLength="100"
+                Text="{Binding Printer.Name}"
+                PlaceholderText="Название" />
+            <TextBox
+                MaxLength="15"
+                Text="{Binding Printer.Ip}"
+                PlaceholderText="IP Адрес" />
+            <TextBox
+                IsEnabled="{Binding !IsChecked, ElementName=IsUserBox}"
+                MaxLength="3"
+                Text="{Binding Printer.NumberCabinet}"
+                PlaceholderText="Номер кабинета" />
+            <ComboBox
+                HorizontalAlignment="Stretch"
+                ItemsSource="{Binding PrinterTypes}"
+                SelectedItem="{Binding Printer.Type}" />
+            <TextBox
+                MaxLength="50"
+                Text="{Binding Printer.SerialNumber}"
+                PlaceholderText="Серийный номер" />
+            <TextBox
+                MaxLength="50"
+                Text="{Binding Printer.InventarNumber}"
+                PlaceholderText="Инвентарный номер" />
+        </StackPanel>
+        <StackPanel Margin="5"
+                    Spacing="5"
+                    Grid.Column="1">
+            <TextBox
+                MaxLength="4"
+                Text="{Binding Printer.YearRelease}"
+                PlaceholderText="Год выпуска" />
+            <CheckBox
+                Name="IsBrokenCheckBox"
+                Content="Сломан"
+                IsChecked="{Binding Printer.IsBroken}" />
+            <TextBox
+                Height="100"
+                IsEnabled="{Binding #IsBrokenCheckBox.IsChecked}"
+                MaxLength="200"
+                Text="{Binding Printer.BreakdownDescription}"
+                PlaceholderText="Описание поломки" />
+            <CheckBox
+                Content="Списан"
+                IsChecked="{Binding Printer.IsDecommissioned}" />
+            <CheckBox
+                Content="На складе"
+                IsChecked="{Binding Printer.IsStock}" />
+            <StackPanel Orientation="Horizontal">
+                <CheckBox Name="IsUserBox" IsChecked="{Binding IsComputer}" />
+                <ComboBox
+                    Width="257"
+                    AutoScrollToSelectedItem="True"
+                    IsEnabled="{Binding #IsUserBox.IsChecked}"
+                    ItemsSource="{Binding Computers}"
+                    PlaceholderText="Компьютер"
+                    SelectedItem="{Binding Printer.Computer}">
+                    <ComboBox.DataTemplates>
+                        <DataTemplate x:DataType="{x:Type models:Computer}">
+                            <TextBlock Text="{Binding ComputerNameWithUserSurFirstName}" />
+                        </DataTemplate>
+                    </ComboBox.DataTemplates>
+                </ComboBox>
+            </StackPanel>
+        </StackPanel>
+        <Button
+            Margin="2"
+            HorizontalAlignment="Stretch"
+            HorizontalContentAlignment="Center"
+            Command="{Binding SavePrinter}"
+            Content="{Binding SaveButtonText}"
+            IsVisible="{Binding IsButtonVisible}"
+            Grid.Row="1"
+            Grid.ColumnSpan="2" />
+    </Grid>
 </Window>

@@ -2,12 +2,10 @@ namespace SudInfo.Avalonia.Views.Windows;
 
 public partial class AppWindow : ReactiveWindow<AppWindowViewModel>
 {
-    public AppWindow()
-    {
+    public AppWindow() {
         InitializeComponent();
     }
-    public AppWindow(WindowType windowType, int? id = null)
-    {
+    public AppWindow(WindowType windowType, int? id = null) {
         var viewModel = ServiceCollectionExtension.ServiceProvider.GetService<AppWindowViewModel>();
         DataContext = viewModel;
         InitializeComponent();

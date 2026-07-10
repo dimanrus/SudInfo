@@ -17,7 +17,8 @@
             <ia:InvokeCommandAction Command="{Binding LoadTasks}" />
         </ia:EventTriggerBehavior>
     </i:Interaction.Behaviors>
-    <Grid ColumnDefinitions="140, *,40" RowDefinitions="40,*">
+    <Grid ColumnDefinitions="140, *,40"
+          RowDefinitions="45,*">
         <TextBlock Classes="PageHeader" Text="Задачи" />
         <Image Grid.Column="2" Source="/Assets/Images/add.png">
             <i:Interaction.Behaviors>
@@ -38,17 +39,9 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Binding="{Binding ReminderTime}" Header="Дата и время" />
+                <DataGridTextColumn Binding="{Binding ReminderTime}"
+                                    Header="Дата и время" />
                 <DataGridTemplateColumn>
-                    <DataTemplate>
-                        <Image Source="/Assets/Images/ok.png">
-                            <i:Interaction.Behaviors>
-                                <ia:EventTriggerBehavior EventName="Tapped">
-                                    <ia:InvokeCommandAction Command="{Binding #Root.DataContext.CompleteTaskCommand}" CommandParameter="{Binding Id}" />
-                                </ia:EventTriggerBehavior>
-                            </i:Interaction.Behaviors>
-                        </Image>
-                    </DataTemplate>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>

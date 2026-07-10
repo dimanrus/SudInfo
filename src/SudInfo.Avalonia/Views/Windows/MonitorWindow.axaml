@@ -15,88 +15,88 @@
     CanResize="False"
     WindowStartupLocation="CenterOwner"
     mc:Ignorable="d">
-  <i:Interaction.Behaviors>
-    <ia:EventTriggerBehavior EventName="Initialized">
-      <ia:InvokeCommandAction Command="{Binding LoadComputer}" />
-    </ia:EventTriggerBehavior>
-  </i:Interaction.Behaviors>
-  <Grid Margin="2"
-        RowDefinitions="*,50"
-        ColumnDefinitions="*,*">
-    <StackPanel Margin="5"
-                Spacing="5">
-      <TextBox
-          MaxLength="100"
-          Text="{Binding Monitor.Name}"
-          Watermark="Название монитора" />
-      <TextBox
-          MaxLength="2"
-          Text="{Binding Monitor.ScreenSize}"
-          Watermark="Размер экрана" />
-      <TextBox
-          MaxLength="4"
-          Text="{Binding Monitor.ScreenResolutionWidth}"
-          Watermark="Разрешение экрана (ширина)" />
-      <TextBox
-          MaxLength="4"
-          Text="{Binding Monitor.ScreenResolutionHeight}"
-          Watermark="Разрешение экрана (высота)" />
-      <TextBox
-          MaxLength="4"
-          Text="{Binding Monitor.YearRelease}"
-          Watermark="Год выпуска" />
-      <TextBox
-          MaxLength="50"
-          Text="{Binding Monitor.SerialNumber}"
-          Watermark="Серийный номер" />
-    </StackPanel>
-    <StackPanel Grid.Column="1"
-                Margin="5"
-                Spacing="5">
-      <TextBox
-          MaxLength="50"
-          Text="{Binding Monitor.InventarNumber}"
-          Watermark="Инвентарный номер" />
-      <CheckBox
-          Name="IsBrokenCheckBox"
-          Content="Сломан"
-          IsChecked="{Binding Monitor.IsBroken}" />
-      <TextBox
-          Height="100"
-          IsEnabled="{Binding #IsBrokenCheckBox.IsChecked}"
-          MaxLength="200"
-          Text="{Binding Monitor.BreakdownDescription}"
-          Watermark="Описание поломки" />
-      <CheckBox
-          Content="Списан"
-          IsChecked="{Binding Monitor.IsDecommissioned}" />
-      <CheckBox
-          Content="На складе"
-          IsChecked="{Binding Monitor.IsStock}" />
-      <StackPanel Orientation="Horizontal">
-        <CheckBox Name="IsUserBox" IsChecked="{Binding IsComputer}" />
-        <ComboBox
-            Width="257"
-            AutoScrollToSelectedItem="True"
-            IsEnabled="{Binding #IsUserBox.IsChecked}"
-            ItemsSource="{Binding Computers}"
-            PlaceholderText="Компьютер"
-            SelectedItem="{Binding Monitor.Computer}">
-          <ComboBox.DataTemplates>
-            <DataTemplate x:DataType="{x:Type models:Computer}">
-              <TextBlock Text="{Binding ComputerNameWithUserSurFirstName}" />
-            </DataTemplate>
-          </ComboBox.DataTemplates>
-        </ComboBox>
-      </StackPanel>
-    </StackPanel>
-    <Button
-        HorizontalAlignment="Stretch"
-        HorizontalContentAlignment="Center"
-        Command="{Binding SaveMonitor}"
-        Content="{Binding SaveButtonText}"
-        IsVisible="{Binding IsButtonVisible}"
-        Grid.Row="1"
-        Grid.ColumnSpan="2"/>
-  </Grid>
+    <i:Interaction.Behaviors>
+        <ia:EventTriggerBehavior EventName="Initialized">
+            <ia:InvokeCommandAction Command="{Binding LoadComputer}" />
+        </ia:EventTriggerBehavior>
+    </i:Interaction.Behaviors>
+    <Grid Margin="2"
+          RowDefinitions="*,50"
+          ColumnDefinitions="*,*">
+        <StackPanel Margin="5"
+                    Spacing="5">
+            <TextBox
+                MaxLength="100"
+                Text="{Binding Monitor.Name}"
+                PlaceholderText="Название монитора" />
+            <TextBox
+                MaxLength="2"
+                Text="{Binding Monitor.ScreenSize}"
+                PlaceholderText="Размер экрана" />
+            <TextBox
+                MaxLength="4"
+                Text="{Binding Monitor.ScreenResolutionWidth}"
+                PlaceholderText="Разрешение экрана (ширина)" />
+            <TextBox
+                MaxLength="4"
+                Text="{Binding Monitor.ScreenResolutionHeight}"
+                PlaceholderText="Разрешение экрана (высота)" />
+            <TextBox
+                MaxLength="4"
+                Text="{Binding Monitor.YearRelease}"
+                PlaceholderText="Год выпуска" />
+            <TextBox
+                MaxLength="50"
+                Text="{Binding Monitor.SerialNumber}"
+                PlaceholderText="Серийный номер" />
+        </StackPanel>
+        <StackPanel Grid.Column="1"
+                    Margin="5"
+                    Spacing="5">
+            <TextBox
+                MaxLength="50"
+                Text="{Binding Monitor.InventarNumber}"
+                PlaceholderText="Инвентарный номер" />
+            <CheckBox
+                Name="IsBrokenCheckBox"
+                Content="Сломан"
+                IsChecked="{Binding Monitor.IsBroken}" />
+            <TextBox
+                Height="100"
+                IsEnabled="{Binding #IsBrokenCheckBox.IsChecked}"
+                MaxLength="200"
+                Text="{Binding Monitor.BreakdownDescription}"
+                PlaceholderText="Описание поломки" />
+            <CheckBox
+                Content="Списан"
+                IsChecked="{Binding Monitor.IsDecommissioned}" />
+            <CheckBox
+                Content="На складе"
+                IsChecked="{Binding Monitor.IsStock}" />
+            <StackPanel Orientation="Horizontal">
+                <CheckBox Name="IsUserBox" IsChecked="{Binding IsComputer}" />
+                <ComboBox
+                    Width="257"
+                    AutoScrollToSelectedItem="True"
+                    IsEnabled="{Binding #IsUserBox.IsChecked}"
+                    ItemsSource="{Binding Computers}"
+                    PlaceholderText="Компьютер"
+                    SelectedItem="{Binding Monitor.Computer}">
+                    <ComboBox.DataTemplates>
+                        <DataTemplate x:DataType="{x:Type models:Computer}">
+                            <TextBlock Text="{Binding ComputerNameWithUserSurFirstName}" />
+                        </DataTemplate>
+                    </ComboBox.DataTemplates>
+                </ComboBox>
+            </StackPanel>
+        </StackPanel>
+        <Button
+            HorizontalAlignment="Stretch"
+            HorizontalContentAlignment="Center"
+            Command="{Binding SaveMonitor}"
+            Content="{Binding SaveButtonText}"
+            IsVisible="{Binding IsButtonVisible}"
+            Grid.Row="1"
+            Grid.ColumnSpan="2" />
+    </Grid>
 </Window>

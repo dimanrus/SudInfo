@@ -1,8 +1,8 @@
 namespace SudInfo.Avalonia.Views.Pages;
+
 public partial class RutokensPage : ReactiveUserControl<RutokensPageViewModel>
 {
-    public RutokensPage()
-    {
+    public RutokensPage() {
         this.WhenActivated(static disposables => { });
         InitializeComponent();
     }

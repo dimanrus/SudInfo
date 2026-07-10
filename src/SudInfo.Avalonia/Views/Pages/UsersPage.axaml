@@ -1,84 +1,84 @@
 <UserControl
-	x:Class="SudInfo.Avalonia.Views.Pages.UsersPage"
-	xmlns="https://github.com/avaloniaui"
-	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-	xmlns:i="using:Avalonia.Xaml.Interactivity"
-	xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
-	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	d:DesignHeight="450"
-	d:DesignWidth="800"
-	mc:Ignorable="d"
-	xmlns:vm="using:SudInfo.Avalonia.ViewModels.PageViewModels"
-	x:DataType="vm:UsersPageViewModel">
-	<i:Interaction.Behaviors>
-		<ia:EventTriggerBehavior EventName="Initialized">
-			<ia:InvokeCommandAction Command="{Binding LoadUsers}" />
-		</ia:EventTriggerBehavior>
-	</i:Interaction.Behaviors>
-	<Grid ColumnDefinitions="150, *, 40,40"
-		  RowDefinitions="40,*">
-		<TextBlock Classes="PageHeader"
-				   Text="Пользователи" />
-		<TextBox
-			Grid.Column="1"
-			Margin="10,5,10,5"
-			MaxLength="50"
-			Text="{Binding SearchText}"
-			UseFloatingWatermark="False"
-			Watermark="Поиск по ФИО">
-			<i:Interaction.Behaviors>
-				<ia:EventTriggerBehavior EventName="KeyUp">
-					<ia:InvokeCommandAction Command="{Binding SearchBoxKeyUpCommand}"
-											PassEventArgsToCommand="True" />
-				</ia:EventTriggerBehavior>
-			</i:Interaction.Behaviors>
-		</TextBox>
-		<Image Grid.Column="2"
-			   Source="/Assets/Images/excel.png">
-			<i:Interaction.Behaviors>
-				<ia:EventTriggerBehavior EventName="Tapped">
-					<ia:InvokeCommandAction Command="{Binding CreateExcelTable}" />
-				</ia:EventTriggerBehavior>
-			</i:Interaction.Behaviors>
-		</Image>
-		<Image Grid.Column="3"
-			   Source="/Assets/Images/add.png">
-			<i:Interaction.Behaviors>
-				<ia:EventTriggerBehavior EventName="Tapped">
-					<ia:InvokeCommandAction Command="{Binding OpenAddUserWindow}" />
-				</ia:EventTriggerBehavior>
-			</i:Interaction.Behaviors>
-		</Image>
-		<DataGrid
-			Grid.Row="1"
-			Grid.ColumnSpan="6"
-			ItemsSource="{Binding Users}"
-			SelectedItem="{Binding SelectedUser}">
-			<DataGrid.ContextMenu>
-				<ContextMenu>
-					<MenuItem Command="{Binding OpenEditUserWindow}"
-							  Header="Редактировать" />
-					<MenuItem Command="{Binding RemoveUser}"
-							  Header="Удалить" />
-				</ContextMenu>
-			</DataGrid.ContextMenu>
-			<DataGrid.Columns>
-				<DataGridTextColumn Binding="{Binding LastName}"
-									Header="Фамилия" />
-				<DataGridTextColumn Binding="{Binding FirstName}"
-									Header="Имя" />
-				<DataGridTextColumn Binding="{Binding MiddleName}"
-									Header="Отчество" />
-				<DataGridTextColumn Binding="{Binding NumberCabinet}"
-									Header="Кабинет" />
-				<DataGridTextColumn Binding="{Binding PersonalPhone}"
-									Header="Личный телефон" />
-				<DataGridTextColumn Binding="{Binding WorkPhone}"
-									Header="Рабочий телефон" />
-				<DataGridTextColumn Binding="{Binding LocalPhone}"
-									Header="Локальный телефон" />
-			</DataGrid.Columns>
-		</DataGrid>
-	</Grid>
+    x:Class="SudInfo.Avalonia.Views.Pages.UsersPage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="using:Avalonia.Xaml.Interactivity"
+    xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    xmlns:vm="using:SudInfo.Avalonia.ViewModels.PageViewModels"
+    x:DataType="vm:UsersPageViewModel">
+    <i:Interaction.Behaviors>
+        <ia:EventTriggerBehavior EventName="Initialized">
+            <ia:InvokeCommandAction Command="{Binding LoadUsers}" />
+        </ia:EventTriggerBehavior>
+    </i:Interaction.Behaviors>
+    <Grid ColumnDefinitions="170, *, 40,40"
+          RowDefinitions="45,*">
+        <TextBlock Classes="PageHeader"
+                   Text="Пользователи" />
+        <TextBox
+            Grid.Column="1"
+            Margin="10,5,10,5"
+            MaxLength="50"
+            Text="{Binding SearchText}"
+            UseFloatingPlaceholder="False"
+            PlaceholderText="Поиск по ФИО">
+            <i:Interaction.Behaviors>
+                <ia:EventTriggerBehavior EventName="KeyUp">
+                    <ia:InvokeCommandAction Command="{Binding SearchBoxKeyUpCommand}"
+                                            PassEventArgsToCommand="True" />
+                </ia:EventTriggerBehavior>
+            </i:Interaction.Behaviors>
+        </TextBox>
+        <Image Grid.Column="2"
+               Source="/Assets/Images/excel.png">
+            <i:Interaction.Behaviors>
+                <ia:EventTriggerBehavior EventName="Tapped">
+                    <ia:InvokeCommandAction Command="{Binding CreateExcelTable}" />
+                </ia:EventTriggerBehavior>
+            </i:Interaction.Behaviors>
+        </Image>
+        <Image Grid.Column="3"
+               Source="/Assets/Images/add.png">
+            <i:Interaction.Behaviors>
+                <ia:EventTriggerBehavior EventName="Tapped">
+                    <ia:InvokeCommandAction Command="{Binding OpenAddUserWindow}" />
+                </ia:EventTriggerBehavior>
+            </i:Interaction.Behaviors>
+        </Image>
+        <DataGrid
+            Grid.Row="1"
+            Grid.ColumnSpan="6"
+            ItemsSource="{Binding Users}"
+            SelectedItem="{Binding SelectedUser}">
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Command="{Binding OpenEditUserWindow}"
+                              Header="Редактировать" />
+                    <MenuItem Command="{Binding RemoveUser}"
+                              Header="Удалить" />
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding LastName}"
+                                    Header="Фамилия" />
+                <DataGridTextColumn Binding="{Binding FirstName}"
+                                    Header="Имя" />
+                <DataGridTextColumn Binding="{Binding MiddleName}"
+                                    Header="Отчество" />
+                <DataGridTextColumn Binding="{Binding NumberCabinet}"
+                                    Header="Кабинет" />
+                <DataGridTextColumn Binding="{Binding PersonalPhone}"
+                                    Header="Личный телефон" />
+                <DataGridTextColumn Binding="{Binding WorkPhone}"
+                                    Header="Рабочий телефон" />
+                <DataGridTextColumn Binding="{Binding LocalPhone}"
+                                    Header="Локальный телефон" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
 </UserControl>

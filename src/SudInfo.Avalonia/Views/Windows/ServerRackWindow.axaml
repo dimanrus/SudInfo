@@ -11,15 +11,15 @@
         xmlns:viewModels="clr-namespace:SudInfo.Avalonia.ViewModels.WindowViewModels;assembly=SudInfo.Avalonia"
         WindowStartupLocation="CenterScreen"
         x:DataType="viewModels:ServerRackWindowViewModel">
-  <StackPanel Margin="10"
-              Spacing="5">
-    <TextBox Watermark="Серийный номер"
-             MaxLength="50"
-             Text="{Binding ServerRack.InventarNumber}"/>
-    <Button Content="{Binding SaveButtonText}"
-            Command="{Binding SaveServerRack}"
-            Margin="0 5 0 0"
-            HorizontalAlignment="Stretch"
-            HorizontalContentAlignment="Center"/>
-  </StackPanel>
+    <StackPanel Margin="10"
+                Spacing="5">
+        <TextBox PlaceholderText="Серийный номер"
+                 MaxLength="50"
+                 Text="{Binding ServerRack.InventarNumber}" />
+        <Button Content="{Binding SaveButtonText}"
+                Command="{Binding SaveServerRack}"
+                Margin="0 5 0 0"
+                HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Center" />
+    </StackPanel>
 </Window>

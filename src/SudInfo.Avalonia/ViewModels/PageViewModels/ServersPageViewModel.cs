@@ -1,28 +1,10 @@
 ﻿namespace SudInfo.Avalonia.ViewModels.PageViewModels;
 
-public class ServersPageViewModel : BaseRoutableViewModel
+public partial class ServersPageViewModel : BaseRoutableViewModel
 {
-    #region Services
-
-    private readonly NavigationService _navigationService;
-
-    private readonly ServerRackService _serverRackService;
-
-    private readonly ServerService _serverService;
-
-    #endregion
-
-    #region Collections
-
-    [Reactive]
-    public IReadOnlyCollection<ServerRack>? ServerRacks { get; set; }
-
-    #endregion
-
     #region Ctors
 
-    public ServersPageViewModel(NavigationService navigationService, ServerService serverService, ServerRackService serverRackService)
-    {
+    public ServersPageViewModel(NavigationService navigationService, ServerService serverService, ServerRackService serverRackService) {
         #region Services Initialization
 
         _navigationService = navigationService;
@@ -35,54 +17,39 @@ public class ServersPageViewModel : BaseRoutableViewModel
 
         #region Commands Initialization
 
-        OpenAddServerWindowCommand = ReactiveCommand.Create<ServerRack>(async (ServerRack serverRack) =>
-        {
-            await _navigationService.ShowServerWindowDialog(WindowType.Add, EventHandlerClosedWindowDialog, serverRack: serverRack);
-        });
+        OpenAddServerWindowCommand = ReactiveCommand.Create<ServerRack>(async serverRack => { await _navigationService.ShowServerWindowDialog(WindowType.Add, EventHandlerClosedWindowDialog, serverRack: serverRack); });
 
-        RemoveServerCommand = ReactiveCommand.Create<int>(async (int id) =>
-        {
+        RemoveServerCommand = ReactiveCommand.Create<int>(async id => {
             var result = await _serverService.Remove(id);
-            if (!result.Success)
-            {
+            if (!result.Success) {
                 await DialogService.ShowErrorMessageBox(result.Message);
                 return;
             }
             await LoadServerRacks();
         });
 
-        RemoveServerRackCommand = ReactiveCommand.Create<int>(async (int id) =>
-        {
+        RemoveServerRackCommand = ReactiveCommand.Create<int>(async id => {
             var result = await _serverRackService.Remove(id);
-            if (!result.Success)
-            {
+            if (!result.Success) {
                 await DialogService.ShowErrorMessageBox(result.Message);
                 return;
             }
             await LoadServerRacks();
         });
 
-        EditServerCommand = ReactiveCommand.Create<int>(async (int id) =>
-        {
-            await _navigationService.ShowServerWindowDialog(WindowType.Edit, EventHandlerClosedWindowDialog, id);
-        });
+        EditServerCommand = ReactiveCommand.Create<int>(async id => { await _navigationService.ShowServerWindowDialog(WindowType.Edit, EventHandlerClosedWindowDialog, id); });
 
-        ViewServerCommand = ReactiveCommand.Create<int>(async (int id) =>
-        {
-            await _navigationService.ShowServerWindowDialog(WindowType.View, id: id);
-        });
+        ViewServerCommand = ReactiveCommand.Create<int>(async id => { await _navigationService.ShowServerWindowDialog(WindowType.View, id: id); });
 
-        UpServerPositionInServerRack = ReactiveCommand.Create<int>(async (int id) =>
-        {
-            Result result = await _serverService.UpServerPositionInServerRack(id);
+        UpServerPositionInServerRack = ReactiveCommand.Create<int>(async id => {
+            var result = await _serverService.UpServerPositionInServerRack(id);
             if (!result.Success)
                 await DialogService.ShowErrorMessageBox(result.Message);
             await LoadServerRacks();
         });
 
-        DownServerPositionInServerRack = ReactiveCommand.Create<int>(async (int id) =>
-        {
-            Result result = await _serverService.DownServerPositionInServerRack(id);
+        DownServerPositionInServerRack = ReactiveCommand.Create<int>(async id => {
+            var result = await _serverService.DownServerPositionInServerRack(id);
             if (!result.Success)
                 await DialogService.ShowErrorMessageBox(result.Message);
             await LoadServerRacks();
@@ -93,18 +60,32 @@ public class ServersPageViewModel : BaseRoutableViewModel
 
     #endregion
 
+    #region Collections
+
+    [Reactive]
+    public partial IReadOnlyCollection<ServerRack>? ServerRacks { get; set; }
+
+    #endregion
+
+    #region Services
+
+    private readonly NavigationService _navigationService;
+
+    private readonly ServerRackService _serverRackService;
+
+    private readonly ServerService _serverService;
+
+    #endregion
+
     #region Public Methods
 
-    public async Task OpenAddServerRackWindow()
-    {
+    public async Task OpenAddServerRackWindow() {
         await _navigationService.ShowServerRackWindowDialog(WindowType.Add, EventHandlerClosedWindowDialog);
     }
 
-    public async Task LoadServerRacks()
-    {
+    public async Task LoadServerRacks() {
         var serverRacksResult = await _serverRackService.Get();
-        if (!serverRacksResult.Success)
-        {
+        if (!serverRacksResult.Success) {
             await DialogService.ShowErrorMessageBox(serverRacksResult.Message);
             return;
         }

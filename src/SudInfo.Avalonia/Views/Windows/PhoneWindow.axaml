@@ -1,80 +1,78 @@
 <Window
-  x:Class="SudInfo.Avalonia.Views.Windows.PhoneWindow"
-  xmlns="https://github.com/avaloniaui"
-  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-  xmlns:models="using:SudInfo.EfDataAccessLibrary.Models"
-  xmlns:viewModels="clr-namespace:SudInfo.Avalonia.ViewModels.WindowViewModels;assembly=SudInfo.Avalonia"
-  Title="Телефон"
-  Width="600"
-  Height="500"
-  x:DataType="viewModels:PhoneWindowViewModel"
-  CanResize="False"
-  WindowStartupLocation="CenterScreen"
-  mc:Ignorable="d">
-  <StackPanel
-    Margin="5"
-    Spacing="5">
-    <TextBox
-      MaxLength="50"
-      Text="{Binding Phone.Name}"
-      Watermark="Наименование" />
-    <TextBox
-      MaxLength="50"
-      Text="{Binding Phone.SerialNumber}"
-      Watermark="Серийный номер" />
-    <TextBox
-      MaxLength="50"
-      Text="{Binding Phone.InventarNumber}"
-      Watermark="Инвентарный номер"
-      IsEnabled="{Binding !#IsPersonalCheckBox.IsChecked}"/>
-    <CheckBox
-      Name="IsBrokenCheckBox"
-      Content="Сломан"
-      IsChecked="{Binding Phone.IsBroken}" />
-    <TextBox
-      Height="100"
-      IsEnabled="{Binding #IsBrokenCheckBox.IsChecked}"
-      MaxLength="200"
-      Text="{Binding Phone.BreakdownDescription}"
-      Watermark="Описание поломки" />
-    <CheckBox
-      Content="Списан"
-      IsChecked="{Binding Phone.IsDecommissioned}" />
-    <CheckBox
-      Content="На складе"
-      IsChecked="{Binding Phone.IsStock}" />
-    <CheckBox
-      Name="IsPersonalCheckBox"
-      Content="Личный"
-      IsChecked="{Binding Phone.IsPersonal}" />
+    x:Class="SudInfo.Avalonia.Views.Windows.PhoneWindow"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:SudInfo.EfDataAccessLibrary.Models"
+    xmlns:viewModels="clr-namespace:SudInfo.Avalonia.ViewModels.WindowViewModels;assembly=SudInfo.Avalonia"
+    Title="Телефон"
+    Width="600"
+    Height="500"
+    x:DataType="viewModels:PhoneWindowViewModel"
+    CanResize="False"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
     <StackPanel
-      Orientation="Horizontal">
-      <CheckBox
-        Name="IsUserBox"
-        IsChecked="{Binding IsUser}" />
-      <ComboBox
-        Width="257"
-        AutoScrollToSelectedItem="True"
-        IsEnabled="{Binding #IsUserBox.IsChecked}"
-        ItemsSource="{Binding Users}"
-        PlaceholderText="Сотрудник"
-        SelectedItem="{Binding Phone.User}">
-        <ComboBox.DataTemplates>
-          <DataTemplate x:DataType="{x:Type models:User}">
-            <TextBlock Text="{Binding FIO}" />
-          </DataTemplate>
-        </ComboBox.DataTemplates>
-      </ComboBox>
+        Margin="5"
+        Spacing="5">
+        <TextBox
+            MaxLength="50"
+            Text="{Binding Phone.Name}"
+            PlaceholderText="Наименование" />
+        <TextBox
+            MaxLength="50"
+            Text="{Binding Phone.SerialNumber}"
+            PlaceholderText="Серийный номер" />
+        <TextBox
+            MaxLength="50"
+            Text="{Binding Phone.InventarNumber}"
+            PlaceholderText="Инвентарный номер"
+            IsEnabled="{Binding !#IsPersonalCheckBox.IsChecked}" />
+        <CheckBox
+            Name="IsBrokenCheckBox"
+            Content="Сломан"
+            IsChecked="{Binding Phone.IsBroken}" />
+        <TextBox
+            Height="100"
+            IsEnabled="{Binding #IsBrokenCheckBox.IsChecked}"
+            MaxLength="200"
+            Text="{Binding Phone.BreakdownDescription}"
+            PlaceholderText="Описание поломки" />
+        <CheckBox
+            Content="Списан"
+            IsChecked="{Binding Phone.IsDecommissioned}" />
+        <CheckBox
+            Content="На складе"
+            IsChecked="{Binding Phone.IsStock}" />
+        <CheckBox
+            Name="IsPersonalCheckBox"
+            Content="Личный"
+            IsChecked="{Binding Phone.IsPersonal}" />
+        <StackPanel
+            Orientation="Horizontal">
+            <CheckBox
+                Name="IsUserBox"
+                IsChecked="{Binding IsUser}" />
+            <ComboBox
+                Width="257"
+                AutoScrollToSelectedItem="True"
+                IsEnabled="{Binding #IsUserBox.IsChecked}"
+                ItemsSource="{Binding Users}"
+                PlaceholderText="Сотрудник"
+                SelectedItem="{Binding Phone.User}">
+                <ComboBox.DataTemplates>
+                    <DataTemplate x:DataType="{x:Type models:User}">
+                        <TextBlock Text="{Binding FIO}" />
+                    </DataTemplate>
+                </ComboBox.DataTemplates>
+            </ComboBox>
+        </StackPanel>
+        <Button
+            HorizontalAlignment="Stretch"
+            HorizontalContentAlignment="Center"
+            Command="{Binding SavePhone}"
+            Content="{Binding SaveButtonText}"
+            IsVisible="{Binding ButtonIsVisible}" />
     </StackPanel>
-    <Button
-      Grid.Row="1"
-      Grid.ColumnSpan="2"
-      HorizontalAlignment="Stretch"
-      HorizontalContentAlignment="Center"
-      Command="{Binding SavePhone}"
-      Content="{Binding SaveButtonText}"
-      IsVisible="{Binding ButtonIsVisible}" />
-  </StackPanel>
 </Window>

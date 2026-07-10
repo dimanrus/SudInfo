@@ -4,8 +4,7 @@ public partial class PhoneWindow : ReactiveWindow<PhoneWindowViewModel>
 {
     #region Ctors
 
-    public PhoneWindow(WindowType windowType, int? computerId = null)
-    {
+    public PhoneWindow(WindowType windowType, int? computerId = null) {
         InitializeComponent();
         var viewModel = ServiceCollectionExtension.ServiceProvider.GetService<PhoneWindowViewModel>();
         DataContext = viewModel;

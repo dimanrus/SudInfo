@@ -1,6 +1,7 @@
 ﻿namespace SudInfo.Avalonia.Services;
 
-public class BaseService<T>(SudInfoDatabaseContext context) where T : class
+public class BaseService<T>(
+    SudInfoDatabaseContext context) where T : class
 {
     #region Private variables
 
@@ -10,40 +11,31 @@ public class BaseService<T>(SudInfoDatabaseContext context) where T : class
 
     #region Methods
 
-    public virtual async Task<Result> Update(T entity)
-    {
-        try
-        {
+    public async virtual Task<Result> Update(T entity) {
+        try {
             context.Entry(entity).State = EntityState.Modified;
             context.Update(entity);
             await context.SaveChangesAsync();
             return new(true);
         }
-        catch (DbUpdateException ex)
-        {
-            return new()
-            {
+        catch (DbUpdateException ex) {
+            return new() {
                 Message = ex.InnerException.Message
             };
         }
     }
 
-    public virtual async Task<Result> Add(T entity)
-    {
-        try
-        {
+    public async virtual Task<Result> Add(T entity) {
+        try {
             context.Entry(entity).State = EntityState.Added;
             await context.AddAsync(entity);
             await context.SaveChangesAsync();
-            return new()
-            {
+            return new() {
                 Success = true
             };
         }
-        catch (Exception ex)
-        {
-            return new()
-            {
+        catch (Exception ex) {
+            return new() {
                 Message = ex.Message
             };
         }

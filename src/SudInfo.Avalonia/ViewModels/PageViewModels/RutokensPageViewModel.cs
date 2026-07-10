@@ -1,33 +1,16 @@
 ﻿namespace SudInfo.Avalonia.ViewModels.PageViewModels;
 
-public class RutokensPageViewModel : BaseRoutableViewModel
+public partial class RutokensPageViewModel : BaseRoutableViewModel
 {
-    #region Services
+    #region Private Variables
 
-    private readonly NavigationService _navigationService;
-
-    private readonly RutokenService _rutokenService;
-
-    #endregion
-
-    #region Collections
-
-    [Reactive]
-    public IReadOnlyCollection<Rutoken>? Rutokens { get; set; }
-
-    #endregion
-
-    #region Properties
-
-    [Reactive]
-    public Rutoken? SelectedRutoken { get; set; }
+    private readonly EventHandler _eventHandlerClosedWindowDialog;
 
     #endregion
 
     #region Ctors
 
-    public RutokensPageViewModel(NavigationService navigationService, RutokenService rutokenService)
-    {
+    public RutokensPageViewModel(NavigationService navigationService, RutokenService rutokenService) {
         #region Serives Initialization
 
         _navigationService = navigationService;
@@ -40,51 +23,61 @@ public class RutokensPageViewModel : BaseRoutableViewModel
 
     #endregion
 
-    #region Private Variables
+    #region Collections
 
-    private readonly EventHandler _eventHandlerClosedWindowDialog;
+    [Reactive]
+    public partial IReadOnlyCollection<Rutoken>? Rutokens { get; set; }
+
+    #endregion
+
+    #region Properties
+
+    [Reactive]
+    public partial Rutoken? SelectedRutoken { get; set; }
+
+    #endregion
+
+    #region Services
+
+    private readonly NavigationService _navigationService;
+
+    private readonly RutokenService _rutokenService;
 
     #endregion
 
     #region Public Methods
 
-    public async Task CreateExcelTable()
-    {
+    public async Task CreateExcelTable() {
         if (Rutokens == null || Rutokens.Count == 0)
             return;
         await ExcelService.CreateExcelTableFromEntity(Rutokens);
     }
 
-    public async Task OpenAddRutokenWindow()
-    {
+    public async Task OpenAddRutokenWindow() {
         await _navigationService.ShowRutokenWindowDialog(WindowType.Add, _eventHandlerClosedWindowDialog);
     }
 
-    public async Task OpenEditRutokenWindow()
-    {
+    public async Task OpenEditRutokenWindow() {
         if (SelectedRutoken == null)
             return;
         await _navigationService.ShowRutokenWindowDialog(WindowType.Edit, _eventHandlerClosedWindowDialog, SelectedRutoken.Id);
     }
 
-    public async Task RemoveRutoken()
-    {
+    public async Task RemoveRutoken() {
         if (SelectedRutoken == null)
             return;
         var dialogResult = await DialogService.ShowQuestionMessageBox("Вы действительно хотите удалить рутокен?");
         if (dialogResult == ButtonResult.No)
             return;
         var removeRutokenResult = await _rutokenService.Remove(SelectedRutoken.Id);
-        if (!removeRutokenResult.Success)
-        {
+        if (!removeRutokenResult.Success) {
             await DialogService.ShowErrorMessageBox(removeRutokenResult.Message);
             return;
         }
         await LoadRutokens();
     }
 
-    public async Task LoadRutokens()
-    {
+    public async Task LoadRutokens() {
         Rutokens = await _rutokenService.Get();
     }
 

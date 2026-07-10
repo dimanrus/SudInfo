@@ -1,89 +1,89 @@
 <UserControl xmlns="https://github.com/avaloniaui"
-			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-			 mc:Ignorable="d"
-			 d:DesignWidth="800"
-			 d:DesignHeight="450"
-			 x:Class="SudInfo.Avalonia.Views.Pages.AppsPage"
-			 xmlns:i="using:Avalonia.Xaml.Interactivity"
-			 xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
-			 xmlns:models="using:SudInfo.EfDataAccessLibrary.Models"
-			 xmlns:viewModels="clr-namespace:SudInfo.Avalonia.ViewModels.PageViewModels"
-			 x:Name="Root"
-			 x:DataType="viewModels:AppsPageViewModel">
-	<i:Interaction.Behaviors>
-		<ia:EventTriggerBehavior EventName="Initialized">
-			<ia:InvokeCommandAction Command="{Binding LoadApps}"/>
-		</ia:EventTriggerBehavior>
-	</i:Interaction.Behaviors>
-	<Grid RowDefinitions="40,*"
-		  ColumnDefinitions="180, *,40, 40">
-		<TextBlock Text="Приложения"
-				   Classes="PageHeader"/>
-		<Image Grid.Column="2"
-			   Source="/Assets/Images/excel.png">
-			<i:Interaction.Behaviors>
-				<ia:EventTriggerBehavior EventName="Tapped">
-					<ia:InvokeCommandAction Command="{Binding CreateExcelTable}" />
-				</ia:EventTriggerBehavior>
-			</i:Interaction.Behaviors>
-		</Image>
-		<Image Source="/Assets/Images/add.png"
-			   Grid.Column="3">
-			<i:Interaction.Behaviors>
-				<ia:EventTriggerBehavior EventName="Tapped">
-					<ia:InvokeCommandAction Command="{Binding OpenAddAppWindow}"/>
-				</ia:EventTriggerBehavior>
-			</i:Interaction.Behaviors>
-		</Image>
-		<DataGrid Grid.Row="1"
-				  Grid.ColumnSpan="6"
-				  ItemsSource="{Binding Apps}"
-				  SelectedIndex="{Binding SelectedIndex}"
-				  SelectedItem="{Binding SelectedApp}">
-			<DataGrid.ContextMenu>
-				<ContextMenu>
-					<MenuItem Header="Редактировать"
-							  Command="{Binding OpenEditAppWindow}"/>
-					<MenuItem Header="Удалить"
-							  Command="{Binding RemoveApp}"/>
-				</ContextMenu>
-			</DataGrid.ContextMenu>
-			<DataGrid.RowDetailsTemplate>
-				<DataTemplate DataType="{x:Type models:AppEntity}">
-					<Border Classes="BorderStyle">
-						<StackPanel>
-							<Button Content="Закрыть"
-									Command="{Binding DataContext.CloseRowDetail, ElementName=Root}"
-									HorizontalAlignment="Stretch"
-									HorizontalContentAlignment="Center"/>
-							<DataGrid ItemsSource="{Binding Computers}"
-									  HorizontalScrollBarVisibility="Disabled">
-								<DataGrid.Columns>
-									<DataGridTextColumn Header="IP Адрес"
-														Binding="{Binding Ip}"/>
-									<DataGridTextColumn Header="Название"
-														Binding="{Binding Name}"/>
-									<DataGridTextColumn Header="ФИО сотрудника"
-														Binding="{Binding User.FIO}"
-														Width="*"/>
-									<DataGridTextColumn Header="Кабинет"
-														Binding="{Binding NumberCabinet}"/>
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignWidth="800"
+             d:DesignHeight="450"
+             x:Class="SudInfo.Avalonia.Views.Pages.AppsPage"
+             xmlns:i="using:Avalonia.Xaml.Interactivity"
+             xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
+             xmlns:models="using:SudInfo.EfDataAccessLibrary.Models"
+             xmlns:viewModels="clr-namespace:SudInfo.Avalonia.ViewModels.PageViewModels"
+             x:Name="Root"
+             x:DataType="viewModels:AppsPageViewModel">
+    <i:Interaction.Behaviors>
+        <ia:EventTriggerBehavior EventName="Initialized">
+            <ia:InvokeCommandAction Command="{Binding LoadApps}" />
+        </ia:EventTriggerBehavior>
+    </i:Interaction.Behaviors>
+    <Grid RowDefinitions="45,*"
+          ColumnDefinitions="180, *,40, 40">
+        <TextBlock Text="Приложения"
+                   Classes="PageHeader" />
+        <Image Grid.Column="2"
+               Source="/Assets/Images/excel.png">
+            <i:Interaction.Behaviors>
+                <ia:EventTriggerBehavior EventName="Tapped">
+                    <ia:InvokeCommandAction Command="{Binding CreateExcelTable}" />
+                </ia:EventTriggerBehavior>
+            </i:Interaction.Behaviors>
+        </Image>
+        <Image Source="/Assets/Images/add.png"
+               Grid.Column="3">
+            <i:Interaction.Behaviors>
+                <ia:EventTriggerBehavior EventName="Tapped">
+                    <ia:InvokeCommandAction Command="{Binding OpenAddAppWindow}" />
+                </ia:EventTriggerBehavior>
+            </i:Interaction.Behaviors>
+        </Image>
+        <DataGrid Grid.Row="1"
+                  Grid.ColumnSpan="6"
+                  ItemsSource="{Binding Apps}"
+                  SelectedIndex="{Binding SelectedIndex}"
+                  SelectedItem="{Binding SelectedApp}">
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Редактировать"
+                              Command="{Binding OpenEditAppWindow}" />
+                    <MenuItem Header="Удалить"
+                              Command="{Binding RemoveApp}" />
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+            <DataGrid.RowDetailsTemplate>
+                <DataTemplate DataType="{x:Type models:AppEntity}">
+                    <Border Classes="BorderStyle">
+                        <StackPanel>
+                            <Button Content="Закрыть"
+                                    Command="{Binding DataContext.CloseRowDetail, ElementName=Root}"
+                                    HorizontalAlignment="Stretch"
+                                    HorizontalContentAlignment="Center" />
+                            <DataGrid ItemsSource="{Binding Computers}"
+                                      HorizontalScrollBarVisibility="Disabled">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="IP Адрес"
+                                                        Binding="{Binding Ip}" />
+                                    <DataGridTextColumn Header="Название"
+                                                        Binding="{Binding Name}" />
+                                    <DataGridTextColumn Header="ФИО сотрудника"
+                                                        Binding="{Binding User.FIO}"
+                                                        Width="*" />
+                                    <DataGridTextColumn Header="Кабинет"
+                                                        Binding="{Binding NumberCabinet}" />
 
-								</DataGrid.Columns>
-							</DataGrid>
-						</StackPanel>
-					</Border>
-				</DataTemplate>
-			</DataGrid.RowDetailsTemplate>
-			<DataGrid.Columns>
-				<DataGridTextColumn Binding="{Binding Name}"
-									Header="Название"/>
-				<DataGridTextColumn Binding="{Binding Version}"
-									Header="Версия"
-									Width="*"/>
-			</DataGrid.Columns>
-		</DataGrid>
-	</Grid>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </DataGrid.RowDetailsTemplate>
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Name}"
+                                    Header="Название" />
+                <DataGridTextColumn Binding="{Binding Version}"
+                                    Header="Версия"
+                                    Width="*" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
 </UserControl>

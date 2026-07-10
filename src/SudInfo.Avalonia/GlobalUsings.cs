@@ -7,7 +7,9 @@ global using Avalonia.Markup.Xaml;
 global using Avalonia.Media.Imaging;
 global using Avalonia.Platform;
 global using Avalonia.Platform.Storage;
+
 global using ReactiveUI.Avalonia;
+
 global using Avalonia.Styling;
 
 global using ClosedXML.Excel;

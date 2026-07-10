@@ -1,7 +1,20 @@
 ﻿namespace SudInfo.Avalonia.ViewModels.WindowViewModels;
 
-public class ComputerWindowViewModel : BaseViewModel
+public partial class ComputerWindowViewModel : BaseViewModel
 {
+    #region Ctors
+
+    public ComputerWindowViewModel(ComputerService computerService, UserService userService) {
+        #region Service Initialization
+
+        _computerService = computerService;
+        _userService = userService;
+
+        #endregion
+    }
+
+    #endregion
+
     #region Services
 
     private readonly ComputerService _computerService;
@@ -12,42 +25,28 @@ public class ComputerWindowViewModel : BaseViewModel
 
     #region Collections
 
-    public static IEnumerable<TypeROM> RomTypes => Enum.GetValues<TypeROM>().Cast<TypeROM>();
+    public static IEnumerable<TypeROM> RomTypes => Enum.GetValues<TypeROM>();
 
-    public static IEnumerable<OS> OsesList => Enum.GetValues<OS>().Cast<OS>();
+    public static IEnumerable<OS> OsesList => Enum.GetValues<OS>();
 
     [Reactive]
-    public IReadOnlyCollection<User>? Users { get; set; }
+    public partial IReadOnlyCollection<User>? Users { get; set; }
 
     #endregion
 
     #region Properties
 
     [Reactive]
-    public Computer Computer { get; set; } = new();
+    public partial Computer Computer { get; set; } = new();
 
     [Reactive]
-    public bool IsUser { get; set; }
+    public partial bool IsUser { get; set; }
 
     [Reactive]
-    public string SaveButtonText { get; private set; } = "Добавить компьютер";
+    public partial string SaveButtonText { get; private set; } = "Добавить компьютер";
 
     [Reactive]
-    public bool ButtonIsVisible { get; private set; }
-
-    #endregion
-
-    #region Ctors
-
-    public ComputerWindowViewModel(ComputerService computerService, UserService userService)
-    {
-        #region Service Initialization
-
-        _computerService = computerService;
-        _userService = userService;
-
-        #endregion
-    }
+    public partial bool ButtonIsVisible { get; private set; }
 
     #endregion
 
@@ -61,48 +60,41 @@ public class ComputerWindowViewModel : BaseViewModel
 
     #region Public Methods
 
-    public async Task SaveComputer()
-    {
+    public async Task SaveComputer() {
         if (!ValidationModel(Computer))
             return;
         if (!IsUser)
             Computer.User = null;
         if (!Computer.IsBroken)
             Computer.BreakdownDescription = string.Empty;
-        Result computerResult = _windowType switch
-        {
+        var computerResult = _windowType switch {
             WindowType.Add => await _computerService.Add(Computer),
             _ => await _computerService.Update(Computer)
         };
-        if (!computerResult.Success)
-        {
+        if (!computerResult.Success) {
             await DialogService.ShowErrorMessageBox(computerResult.Message);
             return;
         }
         _closedWindow();
     }
 
-    public async void Initialization(WindowType windowType, Action close, int? id = null)
-    {
+    public async void Initialization(WindowType windowType, Action close, int? id = null) {
         Users = await _userService.Get();
 
         _windowType = windowType;
         _closedWindow = close;
 
-        if (windowType != WindowType.View)
-        {
+        if (windowType != WindowType.View) {
             ButtonIsVisible = true;
         }
         if (id == null)
             return;
-        if (windowType != WindowType.View)
-        {
+        if (windowType != WindowType.View) {
             ButtonIsVisible = true;
             SaveButtonText = "Сохранить компьютер";
         }
         var computerResult = await _computerService.Get(id.GetValueOrDefault());
-        if (!computerResult.Success)
-        {
+        if (!computerResult.Success) {
             await DialogService.ShowErrorMessageBox(computerResult.Message);
             return;
         }

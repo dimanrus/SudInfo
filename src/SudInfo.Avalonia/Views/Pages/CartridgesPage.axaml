@@ -11,57 +11,58 @@
     d:DesignWidth="800"
     x:DataType="viewModels:CartridgesPageViewModel"
     mc:Ignorable="d">
-  <i:Interaction.Behaviors>
-    <ia:EventTriggerBehavior EventName="Initialized">
-      <ia:InvokeCommandAction Command="{Binding LoadCartridges}" />
-    </ia:EventTriggerBehavior>
-  </i:Interaction.Behaviors>
-  <Grid ColumnDefinitions="140, *,40, 40" RowDefinitions="40,*">
-    <TextBlock
-         Classes="PageHeader"
-        Text="Картриджи" />
-    <Image Grid.Column="2" Source="/Assets/Images/excel.png">
-      <i:Interaction.Behaviors>
-        <ia:EventTriggerBehavior EventName="Tapped">
-          <ia:InvokeCommandAction Command="{Binding CreateExcelTable}" />
+    <i:Interaction.Behaviors>
+        <ia:EventTriggerBehavior EventName="Initialized">
+            <ia:InvokeCommandAction Command="{Binding LoadCartridges}" />
         </ia:EventTriggerBehavior>
-      </i:Interaction.Behaviors>
-    </Image>
-    <Image Grid.Column="3" Source="/Assets/Images/add.png">
-      <i:Interaction.Behaviors>
-        <ia:EventTriggerBehavior EventName="Tapped">
-          <ia:InvokeCommandAction Command="{Binding OpenAddCartridgeWindow}" />
-        </ia:EventTriggerBehavior>
-      </i:Interaction.Behaviors>
-    </Image>
-    <DataGrid 
-        Grid.Row="1"
-        Grid.ColumnSpan="5"
-        ItemsSource="{Binding Cartridges, Mode=TwoWay}"
-        SelectedItem="{Binding SelectedCartridge}">
-      <DataGrid.ContextMenu>
-        <ContextMenu>
-          <MenuItem Header="Редактировать"
-                    Command="{Binding OpenEditCartridgeWindow}"/>
-          <MenuItem Header="Удалить"
-                    Command="{Binding RemoveCartridge}"/>
-        </ContextMenu>
-      </DataGrid.ContextMenu>
-      <DataGrid.Columns>
-        <DataGridTextColumn
-            Binding="{Binding Name}"
-            Header="Название" />
-        <DataGridTextColumn
-            Binding="{Binding Type}"
-            Header="Тип" />
-        <DataGridTextColumn
-            Binding="{Binding Status}"
-            Header="Статус" />
-        <DataGridTextColumn
-            Width="*"
-            Binding="{Binding Remains}"
-            Header="Остаток (шт.)" />
-      </DataGrid.Columns>
-    </DataGrid>
-  </Grid>
+    </i:Interaction.Behaviors>
+    <Grid ColumnDefinitions="140, *,40, 40"
+          RowDefinitions="45,*">
+        <TextBlock
+            Classes="PageHeader"
+            Text="Картриджи" />
+        <Image Grid.Column="2" Source="/Assets/Images/excel.png">
+            <i:Interaction.Behaviors>
+                <ia:EventTriggerBehavior EventName="Tapped">
+                    <ia:InvokeCommandAction Command="{Binding CreateExcelTable}" />
+                </ia:EventTriggerBehavior>
+            </i:Interaction.Behaviors>
+        </Image>
+        <Image Grid.Column="3" Source="/Assets/Images/add.png">
+            <i:Interaction.Behaviors>
+                <ia:EventTriggerBehavior EventName="Tapped">
+                    <ia:InvokeCommandAction Command="{Binding OpenAddCartridgeWindow}" />
+                </ia:EventTriggerBehavior>
+            </i:Interaction.Behaviors>
+        </Image>
+        <DataGrid
+            Grid.Row="1"
+            Grid.ColumnSpan="5"
+            ItemsSource="{Binding Cartridges, Mode=TwoWay}"
+            SelectedItem="{Binding SelectedCartridge}">
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Редактировать"
+                              Command="{Binding OpenEditCartridgeWindow}" />
+                    <MenuItem Header="Удалить"
+                              Command="{Binding RemoveCartridge}" />
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+            <DataGrid.Columns>
+                <DataGridTextColumn
+                    Binding="{Binding Name}"
+                    Header="Название" />
+                <DataGridTextColumn
+                    Binding="{Binding Type}"
+                    Header="Тип" />
+                <DataGridTextColumn
+                    Binding="{Binding Status}"
+                    Header="Статус" />
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding Remains}"
+                    Header="Остаток (шт.)" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
 </UserControl>

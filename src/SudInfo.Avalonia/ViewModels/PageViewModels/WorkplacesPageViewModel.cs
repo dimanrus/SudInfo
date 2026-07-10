@@ -1,40 +1,10 @@
 ﻿namespace SudInfo.Avalonia.ViewModels.PageViewModels;
 
-public class WorkplacesPageViewModel : BaseRoutableViewModel
+public partial class WorkplacesPageViewModel : BaseRoutableViewModel
 {
-    #region Services
-
-    private readonly NavigationService _navigationService;
-
-    private readonly UserService _userService;
-
-    #endregion
-
-    #region Properties
-
-    [Reactive]
-    public string SearchText { get; set; } = string.Empty;
-
-    [Reactive]
-    public int SelectedIndex { get; set; } = -1;
-
-    public User? SelectedUser { get; set; }
-
-    #endregion
-
-    #region Collections
-
-    [Reactive]
-    public IReadOnlyCollection<User>? Users { get; set; }
-
-    public IReadOnlyCollection<User>? UsersFromDatabase { get; set; }
-
-    #endregion
-
     #region Ctors
 
-    public WorkplacesPageViewModel(NavigationService navigationService, UserService userService)
-    {
+    public WorkplacesPageViewModel(NavigationService navigationService, UserService userService) {
         #region Services initialization
 
         _navigationService = navigationService;
@@ -42,31 +12,29 @@ public class WorkplacesPageViewModel : BaseRoutableViewModel
 
         #endregion
 
-        SearchBoxKeyUpCommand = ReactiveCommand.Create((KeyEventArgs keyEventArgs) =>
-        {
-            if (string.IsNullOrWhiteSpace(SearchText))
-            {
+        SearchBoxKeyUpCommand = ReactiveCommand.Create((KeyEventArgs keyEventArgs) => {
+            if (string.IsNullOrWhiteSpace(SearchText)) {
                 Users = UsersFromDatabase;
                 return;
             }
             if (keyEventArgs.Key != Key.Enter || UsersFromDatabase == null)
                 return;
-            string searchTextLower = SearchText.ToLower(CultureInfo.CurrentCulture);
+            var searchTextLower = SearchText.ToLower(CultureInfo.CurrentCulture);
             Users = new List<User>(UsersFromDatabase.Where(x => x.FIO.Contains(searchTextLower, StringComparison.CurrentCultureIgnoreCase) ||
                                                                 x.Computers.Any(c =>
-                                                                    c.Name!.Contains(searchTextLower, StringComparison.CurrentCultureIgnoreCase) ||
-                                                                    c.InventarNumber!.Contains(searchTextLower) ||
-                                                                    c.SerialNumber!.Contains(searchTextLower) ||
-                                                                    (c.Monitors?.Any(m =>
-                                                                        m.Name!.Contains(searchTextLower, StringComparison.CurrentCultureIgnoreCase) ||
-                                                                        m.InventarNumber!.Contains(searchTextLower) ||
-                                                                        m.SerialNumber!.Contains(searchTextLower)
-                                                                    ) == true) ||
-                                                                    (c.Printers?.Any(p =>
-                                                                        p.Name!.Contains(searchTextLower, StringComparison.CurrentCultureIgnoreCase) ||
-                                                                        p.InventarNumber!.Contains(searchTextLower) ||
-                                                                        p.SerialNumber!.Contains(searchTextLower)
-                                                                    ) == true))));
+                                                                                    c.Name!.Contains(searchTextLower, StringComparison.CurrentCultureIgnoreCase) ||
+                                                                                    c.InventarNumber!.Contains(searchTextLower) ||
+                                                                                    c.SerialNumber!.Contains(searchTextLower) ||
+                                                                                    c.Monitors?.Any(m =>
+                                                                                                        m.Name!.Contains(searchTextLower, StringComparison.CurrentCultureIgnoreCase) ||
+                                                                                                        m.InventarNumber!.Contains(searchTextLower) ||
+                                                                                                        m.SerialNumber!.Contains(searchTextLower)
+                                                                                                   ) == true ||
+                                                                                    c.Printers?.Any(p =>
+                                                                                                        p.Name!.Contains(searchTextLower, StringComparison.CurrentCultureIgnoreCase) ||
+                                                                                                        p.InventarNumber!.Contains(searchTextLower) ||
+                                                                                                        p.SerialNumber!.Contains(searchTextLower)
+                                                                                                   ) == true)));
         });
     }
 
@@ -78,35 +46,58 @@ public class WorkplacesPageViewModel : BaseRoutableViewModel
 
     #endregion
 
+    #region Services
+
+    private readonly NavigationService _navigationService;
+
+    private readonly UserService _userService;
+
+    #endregion
+
+    #region Properties
+
+    [Reactive]
+    public partial string SearchText { get; set; } = string.Empty;
+
+    [Reactive]
+    public partial int SelectedIndex { get; set; } = -1;
+
+    public User? SelectedUser { get; set; }
+
+    #endregion
+
+    #region Collections
+
+    [Reactive]
+    public partial IReadOnlyCollection<User>? Users { get; set; }
+
+    public IReadOnlyCollection<User>? UsersFromDatabase { get; set; }
+
+    #endregion
+
     #region Public methods
 
-    public void CloseRowDetail()
-    {
+    public void CloseRowDetail() {
         SelectedIndex = -1;
     }
 
-    public async Task OpenViewComputerWindow(object id)
-    {
+    public async Task OpenViewComputerWindow(object id) {
         await _navigationService.ShowComputerWindowDialog(WindowType.View, computerId: (int)id);
     }
 
-    public async Task OpenViewPrinterWindow(object id)
-    {
+    public async Task OpenViewPrinterWindow(object id) {
         await _navigationService.ShowPrinterWindowDialog(WindowType.View, printerId: (int)id);
     }
 
-    public async Task OpenViewMonitorWindow(object id)
-    {
+    public async Task OpenViewMonitorWindow(object id) {
         await _navigationService.ShowMonitorWindowDialog(WindowType.View, monitorId: (int)id);
     }
 
-    public async Task OpenViewPeripheryWindow(object id)
-    {
+    public async Task OpenViewPeripheryWindow(object id) {
         await _navigationService.ShowPeripheryWindowDialog(WindowType.View, peripheryId: (int)id);
     }
 
-    public async Task LoadWorkplaces()
-    {
+    public async Task LoadWorkplaces() {
         Users = await _userService.Get();
         UsersFromDatabase = Users;
     }

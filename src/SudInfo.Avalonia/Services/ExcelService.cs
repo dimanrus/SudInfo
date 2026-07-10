@@ -2,8 +2,7 @@
 
 public static class ExcelService
 {
-    public static async Task CreateExcelTableFromEntity<T>(IReadOnlyCollection<T> entity)
-    {
+    public async static Task CreateExcelTableFromEntity<T>(IReadOnlyCollection<T> entity) {
         if (App.MainWindow == null)
             return;
         using XLWorkbook wb = new();
@@ -16,22 +15,18 @@ public static class ExcelService
         if (storageProvider == null)
             return;
 
-        var saveFilePickerOptions = new FilePickerSaveOptions
-        {
+        var saveFilePickerOptions = new FilePickerSaveOptions {
             Title = "Выберите путь сохранения",
             SuggestedFileName = "Table.xlsx",
-            FileTypeChoices =
-            [
-                new FilePickerFileType("Excel")
-                {
+            FileTypeChoices = [
+                new("Excel") {
                     Patterns = ["*.xlsx"]
                 }
             ]
         };
 
         var fileResult = await storageProvider.SaveFilePickerAsync(saveFilePickerOptions);
-        if (fileResult != null)
-        {
+        if (fileResult != null) {
             await using var stream = await fileResult.OpenWriteAsync();
             wb.SaveAs(stream);
         }

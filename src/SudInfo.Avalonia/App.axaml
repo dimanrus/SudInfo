@@ -7,7 +7,8 @@
     <Application.Styles>
         <FluentTheme />
         <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml" />
-        <StyleInclude Source="avares://Avalonia.Controls.TreeDataGrid/Themes/Fluent.axaml" />
+        <StyleInclude
+            Source="avares://Avalonia.Controls.TreeDataGrid/Themes/Fluent.axaml" />
         <!--#region Styles-->
         <Style Selector="Button">
             <Setter Property="Cursor" Value="Hand" />
@@ -20,7 +21,7 @@
             <Setter Property="Cursor" Value="Hand" />
         </Style>
         <Style Selector="TextBox">
-            <Setter Property="UseFloatingWatermark" Value="True" />
+            <Setter Property="UseFloatingPlaceholder" Value="True" />
             <Setter Property="TextWrapping" Value="Wrap" />
         </Style>
         <Style Selector="Image">

@@ -1,7 +1,30 @@
 ﻿namespace SudInfo.Avalonia.ViewModels.WindowViewModels;
 
-public class RutokenWindowViewModel : BaseViewModel
+public partial class RutokenWindowViewModel : BaseViewModel
 {
+    #region Constructors
+
+    public RutokenWindowViewModel(
+        RutokenService rutokenSerrvice,
+        UserService usersService) {
+        #region Service Initialization
+
+        _rutokenService = rutokenSerrvice;
+
+        _usersService = usersService;
+
+        #endregion
+    }
+
+    #endregion
+
+    #region Collections
+
+    [Reactive]
+    public partial IReadOnlyCollection<User>? Users { get; set; }
+
+    #endregion
+
     #region Services
 
     private readonly RutokenService _rutokenService;
@@ -10,38 +33,16 @@ public class RutokenWindowViewModel : BaseViewModel
 
     #endregion
 
-    #region Collections
-
-    [Reactive]
-    public IReadOnlyCollection<User>? Users { get; set; }
-
-    #endregion
-
     #region Properties
 
     [Reactive]
-    public Rutoken Rutoken { get; set; } = new();
+    public partial Rutoken Rutoken { get; set; } = new();
 
     [Reactive]
-    public bool IsUser { get; set; }
+    public partial bool IsUser { get; set; }
 
     [Reactive]
-    public string SaveButtonText { get; private set; } = "Добавить рутокен";
-
-    #endregion
-
-    #region Constructors
-
-    public RutokenWindowViewModel(
-        RutokenService rutokenSerrvice,
-        UserService usersService)
-    {
-        #region Service Initialization
-        _rutokenService = rutokenSerrvice;
-
-        _usersService = usersService;
-        #endregion
-    }
+    public partial string SaveButtonText { get; private set; } = "Добавить рутокен";
 
     #endregion
 
@@ -55,34 +56,28 @@ public class RutokenWindowViewModel : BaseViewModel
 
     #region Public Methods
 
-    public async Task SaveRutoken()
-    {
+    public async Task SaveRutoken() {
         if (!IsUser)
             Rutoken.User = null;
-        Result rutokenResult = _windowType switch
-        {
+        var rutokenResult = _windowType switch {
             WindowType.Add => await _rutokenService.Add(Rutoken),
             _ => await _rutokenService.Update(Rutoken)
         };
-        if (!rutokenResult.Success)
-        {
+        if (!rutokenResult.Success) {
             await DialogService.ShowErrorMessageBox(rutokenResult.Message);
             return;
         }
         _closedWindow();
     }
 
-    public async void Initialization(WindowType windowType, Action close, int? id = null)
-    {
+    public async void Initialization(WindowType windowType, Action close, int? id = null) {
         _windowType = windowType;
         _closedWindow = close;
 
-        if (id != null)
-        {
+        if (id != null) {
             SaveButtonText = "Сохранить рутокен";
             var rutokenResult = await _rutokenService.Get(id.GetValueOrDefault());
-            if (!rutokenResult.Success)
-            {
+            if (!rutokenResult.Success) {
                 await DialogService.ShowErrorMessageBox(rutokenResult.Message);
                 return;
             }
@@ -92,8 +87,7 @@ public class RutokenWindowViewModel : BaseViewModel
             Rutoken = rutokenResult.Object;
         }
     }
-    public async Task LoadUsers()
-    {
+    public async Task LoadUsers() {
         Users = await _usersService.Get();
     }
 

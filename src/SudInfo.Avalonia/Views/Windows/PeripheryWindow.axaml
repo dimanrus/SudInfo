@@ -15,61 +15,62 @@
     CanResize="False"
     WindowStartupLocation="CenterOwner"
     mc:Ignorable="d">
-  <i:Interaction.Behaviors>
-    <ia:EventTriggerBehavior EventName="Initialized">
-      <ia:InvokeCommandAction Command="{Binding LoadComputers}" />
-    </ia:EventTriggerBehavior>
-  </i:Interaction.Behaviors>
-  <StackPanel Margin="10" Spacing="5">
-    <TextBox
-        MaxLength="50"
-        Text="{Binding Periphery.Name}"
-        Watermark="Название" />
-    <TextBox
-        MaxLength="50"
-        Text="{Binding Periphery.SerialNumber}"
-        Watermark="Серийный номер" />
-    <TextBox
-        MaxLength="50"
-        Text="{Binding Periphery.InventarNumber}"
-        Watermark="Инвентарный номер"
-        IsEnabled="{Binding !#IsPersonalCheckBox.IsChecked}"/>
-    <CheckBox Name="IsPersonalCheckBox" Content="Личное" IsChecked="{Binding Periphery.IsPersonal}" />
-    <ComboBox
-        HorizontalAlignment="Stretch"
-        ItemsSource="{Binding PeripheryTypes}"
-        SelectedItem="{Binding Periphery.Type}" />
-    <CheckBox
-      Name="IsBrokenCheckBox"
-      Content="Сломан"
-      IsChecked="{Binding Periphery.IsBroken}" />
-    <TextBox
-      Height="100"
-      IsEnabled="{Binding #IsBrokenCheckBox.IsChecked}"
-      MaxLength="200"
-      Text="{Binding Periphery.BreakdownDescription}"
-      Watermark="Описание поломки" />
-    <StackPanel Orientation="Horizontal">
-      <CheckBox Name="IsComputerBox" IsChecked="{Binding IsComputer}" />
-      <ComboBox
-          Width="252"
-          AutoScrollToSelectedItem="True"
-          IsEnabled="{Binding #IsComputerBox.IsChecked}"
-          ItemsSource="{Binding Computers}"
-          PlaceholderText="Компьютер"
-          SelectedItem="{Binding Periphery.Computer}">
-        <ComboBox.DataTemplates>
-          <DataTemplate DataType="{x:Type models:Computer}">
-            <TextBlock Text="{Binding ComputerNameWithUserSurFirstName}" />
-          </DataTemplate>
-        </ComboBox.DataTemplates>
-      </ComboBox>
+    <i:Interaction.Behaviors>
+        <ia:EventTriggerBehavior EventName="Initialized">
+            <ia:InvokeCommandAction Command="{Binding LoadComputers}" />
+        </ia:EventTriggerBehavior>
+    </i:Interaction.Behaviors>
+    <StackPanel Margin="10" Spacing="5">
+        <TextBox
+            MaxLength="50"
+            Text="{Binding Periphery.Name}"
+            PlaceholderText="Название" />
+        <TextBox
+            MaxLength="50"
+            Text="{Binding Periphery.SerialNumber}"
+            PlaceholderText="Серийный номер" />
+        <TextBox
+            MaxLength="50"
+            Text="{Binding Periphery.InventarNumber}"
+            PlaceholderText="Инвентарный номер"
+            IsEnabled="{Binding !#IsPersonalCheckBox.IsChecked}" />
+        <CheckBox Name="IsPersonalCheckBox" Content="Личное"
+                  IsChecked="{Binding Periphery.IsPersonal}" />
+        <ComboBox
+            HorizontalAlignment="Stretch"
+            ItemsSource="{Binding PeripheryTypes}"
+            SelectedItem="{Binding Periphery.Type}" />
+        <CheckBox
+            Name="IsBrokenCheckBox"
+            Content="Сломан"
+            IsChecked="{Binding Periphery.IsBroken}" />
+        <TextBox
+            Height="100"
+            IsEnabled="{Binding #IsBrokenCheckBox.IsChecked}"
+            MaxLength="200"
+            Text="{Binding Periphery.BreakdownDescription}"
+            PlaceholderText="Описание поломки" />
+        <StackPanel Orientation="Horizontal">
+            <CheckBox Name="IsComputerBox" IsChecked="{Binding IsComputer}" />
+            <ComboBox
+                Width="252"
+                AutoScrollToSelectedItem="True"
+                IsEnabled="{Binding #IsComputerBox.IsChecked}"
+                ItemsSource="{Binding Computers}"
+                PlaceholderText="Компьютер"
+                SelectedItem="{Binding Periphery.Computer}">
+                <ComboBox.DataTemplates>
+                    <DataTemplate DataType="{x:Type models:Computer}">
+                        <TextBlock Text="{Binding ComputerNameWithUserSurFirstName}" />
+                    </DataTemplate>
+                </ComboBox.DataTemplates>
+            </ComboBox>
+        </StackPanel>
+        <Button
+            HorizontalAlignment="Stretch"
+            HorizontalContentAlignment="Center"
+            Command="{Binding SavePeriphery}"
+            Content="{Binding SaveButtonText}"
+            IsVisible="{Binding IsButtonVisible}" />
     </StackPanel>
-    <Button
-        HorizontalAlignment="Stretch"
-        HorizontalContentAlignment="Center"
-        Command="{Binding SavePeriphery}"
-        Content="{Binding SaveButtonText}"
-        IsVisible="{Binding IsButtonVisible}" />
-  </StackPanel>
 </Window>

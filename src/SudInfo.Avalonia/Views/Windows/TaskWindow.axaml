@@ -11,20 +11,20 @@
         xmlns:viewModels="clr-namespace:SudInfo.Avalonia.ViewModels.WindowViewModels;assembly=SudInfo.Avalonia"
         WindowStartupLocation="CenterScreen"
         x:DataType="viewModels:TaskWindowViewModel">
-  <StackPanel HorizontalAlignment="Center"
-              Margin="5"
-              Spacing="5">
-    <TextBox MaxLength="200"
-             Text="{Binding Task.Description}"
-             Watermark="Задача"
-             Height="120"/>
-    <DatePicker SelectedDate="{Binding ReminderDate}"
-                Width="290"/>
-    <TimePicker SelectedTime="{Binding ReminderTime}"
-                Width="290"/>
-    <Button Content="Добавить задачу"
-            Command="{Binding AddTask}"
-            HorizontalAlignment="Stretch"
-            HorizontalContentAlignment="Center"/>
-  </StackPanel>
+    <StackPanel HorizontalAlignment="Center"
+                Margin="5"
+                Spacing="5">
+        <TextBox MaxLength="200"
+                 Text="{Binding Task.Description}"
+                 PlaceholderText="Задача"
+                 Height="120" />
+        <DatePicker SelectedDate="{Binding ReminderDate}"
+                    Width="290" />
+        <TimePicker SelectedTime="{Binding ReminderTime}"
+                    Width="290" />
+        <Button Content="Добавить задачу"
+                Command="{Binding AddTask}"
+                HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Center" />
+    </StackPanel>
 </Window>

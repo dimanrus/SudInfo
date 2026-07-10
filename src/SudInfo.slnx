@@ -1,13 +1,13 @@
 <Solution>
-  <Configurations>
-    <BuildType Name="All" />
-    <BuildType Name="Debug" />
-    <BuildType Name="Release" />
-  </Configurations>
-  <Project Path="SudInfo.Avalonia/SudInfo.Avalonia.csproj">
-    <BuildType Solution="All|*" Project="Debug" />
-  </Project>
-  <Project Path="SudInfo.EfDataAccessLibrary/SudInfo.EfDataAccessLibrary.csproj">
-    <BuildType Solution="All|*" Project="Debug" />
-  </Project>
+    <Configurations>
+        <BuildType Name="All"/>
+        <BuildType Name="Debug"/>
+        <BuildType Name="Release"/>
+    </Configurations>
+    <Project Path="SudInfo.Avalonia/SudInfo.Avalonia.csproj">
+        <BuildType Solution="All|*" Project="Debug"/>
+    </Project>
+    <Project Path="SudInfo.EfDataAccessLibrary/SudInfo.EfDataAccessLibrary.csproj">
+        <BuildType Solution="All|*" Project="Debug"/>
+    </Project>
 </Solution>

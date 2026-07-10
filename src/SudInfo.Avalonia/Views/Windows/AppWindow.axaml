@@ -15,32 +15,32 @@
         Width="600"
         Height="400"
         Name="Root">
-  <StackPanel Margin="10"
-              Spacing="5">
-    <TextBox Text="{Binding AppEntity.Name}"
-             Watermark="Название"
-             MaxLength="100"/>
-    <TextBox Text="{Binding AppEntity.Version}"
-             Watermark="Версия"
-             MaxLength="20"/>
-    <TextBlock Text="Компьютеры"/>
-    <ScrollViewer Height="200">
-      <ItemsControl ItemsSource="{Binding Computers}">
-        <ItemsControl.DataTemplates>
-          <DataTemplate DataType="models:Computer">
-            <CheckBox Content="{Binding ComputerNameWithUserSurFirstName}"
-                      Command="{Binding #Root.DataContext.SelectionComputerChanged}"
-                      CommandParameter="{Binding Id}"
-                      IsChecked="{Binding IsSelected}"
-                      Width="550"/>
-          </DataTemplate>
-        </ItemsControl.DataTemplates>
-      </ItemsControl>
-    </ScrollViewer>
-    <Button Content="{Binding SaveButtonText}"
-            Command="{Binding SaveApp}"
-            HorizontalAlignment="Stretch"
-            HorizontalContentAlignment="Center"
-            IsVisible="{Binding ButtonIsVisible}"/>
-  </StackPanel>
+    <StackPanel Margin="10"
+                Spacing="5">
+        <TextBox Text="{Binding AppEntity.Name}"
+                 PlaceholderText="Название"
+                 MaxLength="100" />
+        <TextBox Text="{Binding AppEntity.Version}"
+                 PlaceholderText="Версия"
+                 MaxLength="20" />
+        <TextBlock Text="Компьютеры" />
+        <ScrollViewer Height="200">
+            <ItemsControl ItemsSource="{Binding Computers}">
+                <ItemsControl.DataTemplates>
+                    <DataTemplate DataType="models:Computer">
+                        <CheckBox Content="{Binding ComputerNameWithUserSurFirstName}"
+                                  Command="{Binding #Root.DataContext.SelectionComputerChanged}"
+                                  CommandParameter="{Binding Id}"
+                                  IsChecked="{Binding IsSelected}"
+                                  Width="550" />
+                    </DataTemplate>
+                </ItemsControl.DataTemplates>
+            </ItemsControl>
+        </ScrollViewer>
+        <Button Content="{Binding SaveButtonText}"
+                Command="{Binding SaveApp}"
+                HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Center"
+                IsVisible="{Binding ButtonIsVisible}" />
+    </StackPanel>
 </Window>

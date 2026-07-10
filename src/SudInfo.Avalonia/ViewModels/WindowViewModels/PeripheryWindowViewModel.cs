@@ -1,6 +1,6 @@
 ﻿namespace SudInfo.Avalonia.ViewModels.WindowViewModels;
 
-public class PeripheryWindowViewModel : BaseViewModel
+public partial class PeripheryWindowViewModel : BaseViewModel
 {
     #region Services
 
@@ -12,26 +12,26 @@ public class PeripheryWindowViewModel : BaseViewModel
 
     #region Collections
 
-    public static IEnumerable<PeripheryType> PeripheryTypes => Enum.GetValues<PeripheryType>().Cast<PeripheryType>();
+    public static IEnumerable<PeripheryType> PeripheryTypes => Enum.GetValues<PeripheryType>();
 
     [Reactive]
-    public IReadOnlyCollection<Computer>? Computers { get; set; }
+    public partial IReadOnlyCollection<Computer>? Computers { get; set; }
 
     #endregion
 
     #region Properties
 
     [Reactive]
-    public Periphery Periphery { get; set; } = new();
+    public partial Periphery Periphery { get; set; } = new();
 
     [Reactive]
-    public bool IsComputer { get; set; }
+    public partial bool IsComputer { get; set; }
 
     [Reactive]
-    public string SaveButtonText { get; private set; } = "Добавить периферию";
+    public partial string SaveButtonText { get; private set; } = "Добавить периферию";
 
     [Reactive]
-    public bool IsButtonVisible { get; set; } = false;
+    public partial bool IsButtonVisible { get; set; } = false;
 
     #endregion
 
@@ -39,19 +39,17 @@ public class PeripheryWindowViewModel : BaseViewModel
 
     public PeripheryWindowViewModel(
         PeripheryService peripheryService,
-
-        ComputerService computerService)
-    {
+        ComputerService computerService) {
         #region Service Initialization
+
         _peripheryService = peripheryService;
 
         _computerService = computerService;
+
         #endregion
     }
 
-    public PeripheryWindowViewModel()
-    {
-    }
+    public PeripheryWindowViewModel() { }
 
     #endregion
 
@@ -65,40 +63,33 @@ public class PeripheryWindowViewModel : BaseViewModel
 
     #region Public Methods
 
-    public async Task SavePeriphery()
-    {
+    public async Task SavePeriphery() {
         if (!ValidationModel(Periphery))
             return;
         if (!IsComputer)
             Periphery.Computer = null;
-        Result computerResult = _windowType switch
-        {
+        var computerResult = _windowType switch {
             WindowType.Add => await _peripheryService.Add(Periphery),
             _ => await _peripheryService.Update(Periphery)
         };
-        if (!computerResult.Success)
-        {
+        if (!computerResult.Success) {
             await DialogService.ShowErrorMessageBox(computerResult.Message);
             return;
         }
         _closedWindow();
     }
-    public async Task Initialization(WindowType windowType, Action close, int? id = null)
-    {
+    public async Task Initialization(WindowType windowType, Action close, int? id = null) {
         _windowType = windowType;
         _closedWindow = close;
 
         if (windowType != WindowType.View)
             IsButtonVisible = true;
-        if (id != null)
-        {
-            if (windowType != WindowType.View)
-            {
+        if (id != null) {
+            if (windowType != WindowType.View) {
                 SaveButtonText = "Сохранить периферию";
             }
             var peripheryResult = await _peripheryService.Get(id.GetValueOrDefault());
-            if (!peripheryResult.Success)
-            {
+            if (!peripheryResult.Success) {
                 await DialogService.ShowErrorMessageBox(peripheryResult.Message);
                 return;
             }
@@ -108,8 +99,7 @@ public class PeripheryWindowViewModel : BaseViewModel
             Periphery = peripheryResult.Object;
         }
     }
-    public async Task LoadComputers()
-    {
+    public async Task LoadComputers() {
         Computers = await _computerService.Get();
     }
 

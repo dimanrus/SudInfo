@@ -12,41 +12,41 @@
     CanResize="False"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
-  <StackPanel Margin="10"
-              Spacing="5">
-    <TextBox
-        MaxLength="20"
-        Text="{Binding User.FirstName}"
-        Watermark="Имя" />
-    <TextBox
-        MaxLength="20"
-        Text="{Binding User.LastName}"
-        Watermark="Фамилия" />
-    <TextBox
-        MaxLength="20"
-        Text="{Binding User.MiddleName}"
-        Watermark="Отчество" />
-    <TextBox
-        MaxLength="3"
-        Text="{Binding User.NumberCabinet}"
-        Watermark="Кабинет" />
-    <TextBox
-        MaxLength="11"
-        Text="{Binding User.PersonalPhone}"
-        Watermark="Личный телефон (Необязательно)" />
-    <TextBox
-        MaxLength="11"
-        Text="{Binding User.WorkPhone}"
-        Watermark="Рабочий телефон (Необязательно)" />
-    <TextBox
-        MaxLength="3"
-        Text="{Binding User.LocalPhone}"
-        Watermark="Внутренний телефон (Необязательно)" />
-    <Button
-        Margin="0,5,0,0"
-        HorizontalAlignment="Stretch"
-        HorizontalContentAlignment="Center"
-        Command="{Binding SaveUser}"
-        Content="{Binding SaveButtonText}"/>
-  </StackPanel>
+    <StackPanel Margin="10"
+                Spacing="5">
+        <TextBox
+            MaxLength="20"
+            Text="{Binding User.FirstName}"
+            PlaceholderText="Имя" />
+        <TextBox
+            MaxLength="20"
+            Text="{Binding User.LastName}"
+            PlaceholderText="Фамилия" />
+        <TextBox
+            MaxLength="20"
+            Text="{Binding User.MiddleName}"
+            PlaceholderText="Отчество" />
+        <TextBox
+            MaxLength="3"
+            Text="{Binding User.NumberCabinet}"
+            PlaceholderText="Кабинет" />
+        <TextBox
+            MaxLength="11"
+            Text="{Binding User.PersonalPhone}"
+            PlaceholderText="Личный телефон (Необязательно)" />
+        <TextBox
+            MaxLength="11"
+            Text="{Binding User.WorkPhone}"
+            PlaceholderText="Рабочий телефон (Необязательно)" />
+        <TextBox
+            MaxLength="3"
+            Text="{Binding User.LocalPhone}"
+            PlaceholderText="Внутренний телефон (Необязательно)" />
+        <Button
+            Margin="0,5,0,0"
+            HorizontalAlignment="Stretch"
+            HorizontalContentAlignment="Center"
+            Command="{Binding SaveUser}"
+            Content="{Binding SaveButtonText}" />
+    </StackPanel>
 </Window>

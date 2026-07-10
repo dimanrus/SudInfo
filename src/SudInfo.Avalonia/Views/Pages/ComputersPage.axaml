@@ -1,106 +1,106 @@
 <UserControl
-	x:Class="SudInfo.Avalonia.Views.Pages.ComputersPage"
-	xmlns="https://github.com/avaloniaui"
-	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-	xmlns:i="using:Avalonia.Xaml.Interactivity"
-	xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
-	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	xmlns:viewModels="clr-namespace:SudInfo.Avalonia.ViewModels.PageViewModels"
-	x:DataType="viewModels:ComputersPageViewModel"
-	mc:Ignorable="d">
-	<i:Interaction.Behaviors>
-		<ia:EventTriggerBehavior EventName="Initialized">
-			<ia:InvokeCommandAction Command="{Binding LoadComputers}" />
-		</ia:EventTriggerBehavior>
-	</i:Interaction.Behaviors>
-	<Grid ColumnDefinitions="140, *, 40,40"
-		  RowDefinitions="40,*">
-		<TextBlock Classes="PageHeader"
-				   Text="Компьютеры" />
-		<TextBox
-			Grid.Column="1"
-			Margin="10,5,10,5"
-			MaxLength="50"
-			Text="{Binding SearchText}"
-			UseFloatingWatermark="False"
-			Watermark="Поиск по названию, номерам и сотруднику">
-			<i:Interaction.Behaviors>
-				<ia:EventTriggerBehavior EventName="KeyUp">
-					<ia:InvokeCommandAction Command="{Binding SearchBoxKeyUpCommand}"
-											PassEventArgsToCommand="True" />
-				</ia:EventTriggerBehavior>
-			</i:Interaction.Behaviors>
-		</TextBox>
-		<Image Grid.Column="2"
-			   Source="/Assets/Images/excel.png">
-			<i:Interaction.Behaviors>
-				<ia:EventTriggerBehavior EventName="Tapped">
-					<ia:InvokeCommandAction Command="{Binding CreateExcelTable}" />
-				</ia:EventTriggerBehavior>
-			</i:Interaction.Behaviors>
-		</Image>
-		<Image Grid.Column="4"
-			   Source="/Assets/Images/add.png">
-			<i:Interaction.Behaviors>
-				<ia:EventTriggerBehavior EventName="Tapped">
-					<ia:InvokeCommandAction Command="{Binding OpenAddComputerWindow}" />
-				</ia:EventTriggerBehavior>
-			</i:Interaction.Behaviors>
-		</Image>
-		<DataGrid
-			Grid.Row="1"
-			Grid.ColumnSpan="7"
-			ItemsSource="{Binding Computers}"
-			SelectedItem="{Binding SelectedComputer}">
-			<DataGrid.ContextMenu>
-				<ContextMenu>
-					<MenuItem Command="{Binding OpenEditComputerWindow}"
-							  Header="Редактировать" />
-					<MenuItem Command="{Binding RemoveComputer}"
-							  Header="Удалить" />
-				</ContextMenu>
-			</DataGrid.ContextMenu>
-			<DataGrid.Columns>
-				<DataGridTextColumn Binding="{Binding Ip}"
-									Header="IP Адрес" />
-				<DataGridTextColumn Binding="{Binding Name}"
-									Header="Название" />
-				<DataGridTextColumn Binding="{Binding OS}"
-									Header="ОС" />
-				<DataGridTextColumn Binding="{Binding CPU}"
-									Header="CPU" />
-				<DataGridTextColumn Binding="{Binding GPU}"
-									Header="GPU" />
-				<DataGridTextColumn Binding="{Binding ROM}"
-									Header="ROM" />
-				<DataGridTextColumn Binding="{Binding RAM}"
-									Header="RAM" />
-				<DataGridTextColumn Binding="{Binding InventarNumber}"
-									Header="Инвентарный" />
-				<DataGridTextColumn Binding="{Binding SerialNumber}"
-									Header="Серийный" />
-				<DataGridTextColumn Binding="{Binding YearRelease}"
-									Header="Год выпуска" />
-				<DataGridTextColumn Binding="{Binding User.FIO}"
-									Header="ФИО сотрудника" />
-				<DataGridTextColumn Binding="{Binding NumberCabinet}"
-									Header="Кабинет" />
-				<DataGridTextColumn Binding="{Binding TypeROM}"
-									Header="Тип диска" />
-				<DataGridTextColumn Binding="{Binding IsVks}"
-									Header="ВКС" />
-				<DataGridTextColumn Binding="{Binding IsPersonal}"
-									Header="Личное" />
-				<DataGridTextColumn Binding="{Binding IsDecommissioned}"
-									Header="Списан" />
-				<DataGridTextColumn Binding="{Binding IsBroken}"
-									Header="Сломан" />
-				<DataGridTextColumn Binding="{Binding IsStock}"
-									Header="На складе" />
-				<DataGridTextColumn Binding="{Binding BreakdownDescription}"
-									Header="Описание поломки" />
-			</DataGrid.Columns>
-		</DataGrid>
-	</Grid>
+    x:Class="SudInfo.Avalonia.Views.Pages.ComputersPage"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="using:Avalonia.Xaml.Interactivity"
+    xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="clr-namespace:SudInfo.Avalonia.ViewModels.PageViewModels"
+    x:DataType="viewModels:ComputersPageViewModel"
+    mc:Ignorable="d">
+    <i:Interaction.Behaviors>
+        <ia:EventTriggerBehavior EventName="Initialized">
+            <ia:InvokeCommandAction Command="{Binding LoadComputers}" />
+        </ia:EventTriggerBehavior>
+    </i:Interaction.Behaviors>
+    <Grid ColumnDefinitions="140, *, 40,40"
+          RowDefinitions="45,*">
+        <TextBlock Classes="PageHeader"
+                   Text="Компьютеры" />
+        <TextBox
+            Grid.Column="1"
+            Margin="10,5,10,5"
+            MaxLength="50"
+            Text="{Binding SearchText}"
+            UseFloatingPlaceholder="False"
+            PlaceholderText="Поиск по названию, номерам и сотруднику">
+            <i:Interaction.Behaviors>
+                <ia:EventTriggerBehavior EventName="KeyUp">
+                    <ia:InvokeCommandAction Command="{Binding SearchBoxKeyUpCommand}"
+                                            PassEventArgsToCommand="True" />
+                </ia:EventTriggerBehavior>
+            </i:Interaction.Behaviors>
+        </TextBox>
+        <Image Grid.Column="2"
+               Source="/Assets/Images/excel.png">
+            <i:Interaction.Behaviors>
+                <ia:EventTriggerBehavior EventName="Tapped">
+                    <ia:InvokeCommandAction Command="{Binding CreateExcelTable}" />
+                </ia:EventTriggerBehavior>
+            </i:Interaction.Behaviors>
+        </Image>
+        <Image Grid.Column="4"
+               Source="/Assets/Images/add.png">
+            <i:Interaction.Behaviors>
+                <ia:EventTriggerBehavior EventName="Tapped">
+                    <ia:InvokeCommandAction Command="{Binding OpenAddComputerWindow}" />
+                </ia:EventTriggerBehavior>
+            </i:Interaction.Behaviors>
+        </Image>
+        <DataGrid
+            Grid.Row="1"
+            Grid.ColumnSpan="7"
+            ItemsSource="{Binding Computers}"
+            SelectedItem="{Binding SelectedComputer}">
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Command="{Binding OpenEditComputerWindow}"
+                              Header="Редактировать" />
+                    <MenuItem Command="{Binding RemoveComputer}"
+                              Header="Удалить" />
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Ip}"
+                                    Header="IP Адрес" />
+                <DataGridTextColumn Binding="{Binding Name}"
+                                    Header="Название" />
+                <DataGridTextColumn Binding="{Binding OS}"
+                                    Header="ОС" />
+                <DataGridTextColumn Binding="{Binding CPU}"
+                                    Header="CPU" />
+                <DataGridTextColumn Binding="{Binding GPU}"
+                                    Header="GPU" />
+                <DataGridTextColumn Binding="{Binding ROM}"
+                                    Header="ROM" />
+                <DataGridTextColumn Binding="{Binding RAM}"
+                                    Header="RAM" />
+                <DataGridTextColumn Binding="{Binding InventarNumber}"
+                                    Header="Инвентарный" />
+                <DataGridTextColumn Binding="{Binding SerialNumber}"
+                                    Header="Серийный" />
+                <DataGridTextColumn Binding="{Binding YearRelease}"
+                                    Header="Год выпуска" />
+                <DataGridTextColumn Binding="{Binding User.FIO}"
+                                    Header="ФИО сотрудника" />
+                <DataGridTextColumn Binding="{Binding NumberCabinet}"
+                                    Header="Кабинет" />
+                <DataGridTextColumn Binding="{Binding TypeROM}"
+                                    Header="Тип диска" />
+                <DataGridTextColumn Binding="{Binding IsVks}"
+                                    Header="ВКС" />
+                <DataGridTextColumn Binding="{Binding IsPersonal}"
+                                    Header="Личное" />
+                <DataGridTextColumn Binding="{Binding IsDecommissioned}"
+                                    Header="Списан" />
+                <DataGridTextColumn Binding="{Binding IsBroken}"
+                                    Header="Сломан" />
+                <DataGridTextColumn Binding="{Binding IsStock}"
+                                    Header="На складе" />
+                <DataGridTextColumn Binding="{Binding BreakdownDescription}"
+                                    Header="Описание поломки" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
 </UserControl>
